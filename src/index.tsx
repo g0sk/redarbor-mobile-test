@@ -1,12 +1,8 @@
 import React from 'react';
-import { View, Text } from 'react-native';
+import { RootNavigator } from './navigation/RootNavigator';
 
 const App = () => {
-	return (
-		<View style={{ backgroundColor: 'red' }}>
-			<Text>Hello from marvel app!</Text>
-		</View>
-	);
+	return <RootNavigator />;
 };
 
 export default App;
