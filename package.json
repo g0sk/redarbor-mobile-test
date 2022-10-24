@@ -12,11 +12,22 @@
   "dependencies": {
     "@react-navigation/native": "^6.0.13",
     "@react-navigation/native-stack": "^6.9.1",
+    "@shopify/restyle": "1.4.0",
+    "@types/i18n-js": "^3.8.3",
+    "apisauce": "^2.1.6",
+    "babel-plugin-module-resolver": "^4.1.0",
+    "formik": "2.2.7",
+    "i18n-js": "^3.8.0",
     "react": "16.13.1",
     "react-native": "0.63.0",
+    "react-native-gesture-handler": "1.10.3",
+    "react-native-keyboard-aware-scroll-view": "0.9.4",
+    "react-native-localize": "2.1.1",
     "react-native-safe-area-context": "3.2.0",
     "react-native-screens": "3.1.1",
-    "react-native-sensitive-info": "^6.0.0-alpha.9"
+    "react-native-sensitive-info": "^6.0.0-alpha.9",
+    "react-native-vector-icons": "8.1.0",
+    "yup": "0.32.9"
   },
   "devDependencies": {
     "@babel/core": "^7.8.4",
@@ -25,13 +36,14 @@
     "@types/jest": "^29.2.0",
     "@types/react": "^18.0.21",
     "@types/react-native": "^0.70.6",
+    "@types/react-native-vector-icons": "^6.4.12",
     "@types/react-test-renderer": "^18.0.0",
     "babel-jest": "^25.1.0",
     "eslint": "^6.5.1",
     "jest": "^25.1.0",
     "metro-react-native-babel-preset": "^0.59.0",
     "react-test-renderer": "16.13.1",
-    "typescript": "^4.8.4"
+    "typescript": "^3.8.3"
   },
   "jest": {
     "preset": "react-native"

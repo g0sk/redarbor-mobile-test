@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { removeCredentials } from '../utils/storage/index';
+import { getCredentials, removeCredentials } from '../utils/storage/index';
 
 type User = {
 	name: string;
@@ -8,30 +8,26 @@ type User = {
 };
 
 interface AuthState {
-	//userToken: string | undefined | null;
-	//refreshToken: string | undefined | null;
 	status: 'signOut' | 'signIn';
 	user: User | null;
 }
-type AuthAction =
-	| { type: 'SIGN_IN'; token: string; refreshToken: string; user: User }
-	| { type: 'SIGN_OUT' };
+type AuthAction = { type: 'SIGN_IN'; user: User } | { type: 'SIGN_OUT' };
 
-type AuthPayload = { token: string; refreshToken: string; user: User };
+type AuthPayload = { user: User };
 
 interface AuthContextActions {
 	signIn: (data: AuthPayload) => void;
 	signOut: () => void;
+	getUserData: () => void;
 }
 
 interface AuthContextType extends AuthState, AuthContextActions {}
 const AuthContext = React.createContext<AuthContextType>({
 	status: 'signOut',
-	//userToken: null,
-	//refreshToken: null,
 	user: null,
 	signIn: () => {},
-	signOut: () => {}
+	signOut: () => {},
+	getUserData: () => {}
 });
 
 // In case you want to use Auth functions outside React tree
@@ -48,15 +44,20 @@ export const useAuth = (): AuthContextType => {
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 	const [state, dispatch] = React.useReducer(AuthReducer, {
 		status: 'signOut',
-		//userToken: null,
-		//refreshToken: null,
 		user: null
 	});
 
 	React.useEffect(() => {
 		const initState = async () => {
+			//Fetch token, refrestoken and user info (fake call)
 			try {
-				//Fetch token, refrestoken and user info
+				const credentials = (await getCredentials()) as User;
+				if (credentials) {
+					if (credentials.email === 'user@user.com') {
+						dispatch({ type: 'SIGN_IN', user: credentials });
+					}
+				}
+				dispatch({ type: 'SIGN_OUT' });
 			} catch (e) {
 				throw e;
 			}
@@ -69,8 +70,8 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
 	const authActions: AuthContextActions = React.useMemo(
 		() => ({
-			signIn: async ({ token, refreshToken, user }: AuthPayload) => {
-				dispatch({ type: 'SIGN_IN', token, refreshToken, user });
+			signIn: async ({ user }: AuthPayload) => {
+				dispatch({ type: 'SIGN_IN', user });
 			},
 			signOut: async () => {
 				dispatch({ type: 'SIGN_OUT' });
@@ -79,6 +80,9 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 				} catch (e) {
 					console.error("Couldn't remove credentials from device");
 				}
+			},
+			getUserData: () => {
+				return state.user;
 			}
 		}),
 		[]
@@ -97,16 +101,12 @@ const AuthReducer = (prevState: AuthState, action: AuthAction): AuthState => {
 			return {
 				...prevState,
 				status: 'signIn',
-				//userToken: action.token,
-				//refreshToken: action.refreshToken,
 				user: action.user
 			};
 		case 'SIGN_OUT':
 			return {
 				...prevState,
 				status: 'signOut',
-				//userToken: null,
-				//refreshToken: null,
 				user: null
 			};
 	}

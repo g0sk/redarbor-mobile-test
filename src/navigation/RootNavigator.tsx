@@ -2,7 +2,8 @@ import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import AuthNavigator from './AuthNavigator';
 import NavigationContainer from './NavigationContainer';
-import { useAuth } from '../core/AuthProvider';
+import AppNavigator from './AppNavigator';
+import { useAuth } from 'core/AuthProvider';
 import type { RootNavigatorParamList } from 'types';
 
 const Stack = createNativeStackNavigator<RootNavigatorParamList>();
@@ -14,8 +15,10 @@ export const RootStack = () => {
 			screenOptions={{
 				headerShown: false
 			}}>
-			{status === 'signOut' && (
+			{status === 'signOut' ? (
 				<Stack.Screen name="Auth" component={AuthNavigator} />
+			) : (
+				<Stack.Screen name="App" component={AppNavigator} />
 			)}
 		</Stack.Navigator>
 	);
