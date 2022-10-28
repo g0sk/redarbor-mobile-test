@@ -1,4 +1,5 @@
-import React, { forwardRef } from 'react';
+import * as React from 'react';
+import { forwardRef } from 'react';
 import {
 	TextInput as RNTextInput,
 	TextInputProps as RNTextInputProps

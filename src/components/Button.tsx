@@ -1,4 +1,5 @@
-import React from 'react';
+import * as React from 'react';
+import { ComponentProps, FC } from 'react';
 import { ActivityIndicator, TouchableOpacity } from 'react-native';
 import {
 	useRestyle,
@@ -17,7 +18,7 @@ import { Theme } from 'theme';
 //Same name as variable in theme object
 const buttonVariant = createVariant({ themeKey: 'buttonVariants' });
 const ButtonContainer = createRestyleComponent<
-	VariantProps<Theme, 'buttonVariants'> & React.ComponentProps<typeof View>,
+	VariantProps<Theme, 'buttonVariants'> & ComponentProps<typeof View>,
 	Theme
 >([buttonVariant], View);
 
@@ -28,7 +29,7 @@ const restyleFunctions = [
 	backgroundColor
 ];
 
-export const Button: React.FC<ButtonProps> = ({
+export const Button: FC<ButtonProps> = ({
 	onPress,
 	label,
 	loading = false,

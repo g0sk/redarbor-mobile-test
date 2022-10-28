@@ -1,4 +1,5 @@
-import React, { PropsWithChildren } from 'react';
+import * as React from 'react';
+import { FC, PropsWithChildren } from 'react';
 import Icon from 'react-native-vector-icons/Feather';
 import { View, Text } from 'components';
 import { useTheme } from 'theme';
@@ -10,11 +11,7 @@ interface CheckBoxProps extends PropsWithChildren {
 	onChange: () => void;
 }
 
-export const CheckBox: React.FC<CheckBoxProps> = ({
-	label,
-	checked,
-	onChange
-}) => {
+export const CheckBox: FC<CheckBoxProps> = ({ label, checked, onChange }) => {
 	const theme = useTheme();
 
 	return (

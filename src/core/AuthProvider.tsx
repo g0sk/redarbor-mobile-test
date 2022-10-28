@@ -36,7 +36,7 @@ export const AuthRef = React.createRef<AuthContextActions>();
 export const useAuth = (): AuthContextType => {
 	const context = React.useContext(AuthContext);
 	if (!context) {
-		throw new Error('useAuth must be inside an AuthProvider with a value');
+		throw new Error('useAuth must be used inside an AuthProvider with a value');
 	}
 	return context;
 };

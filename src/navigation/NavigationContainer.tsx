@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import { NavigationContainer as RNNavigationContainer } from '@react-navigation/native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 

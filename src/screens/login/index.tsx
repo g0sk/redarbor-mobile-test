@@ -1,4 +1,5 @@
-import React, { useEffect, useRef, useState } from 'react';
+import * as React from 'react';
+import { useState, useEffect, useRef } from 'react';
 import * as Yup from 'yup';
 import { useFormik } from 'formik';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
@@ -56,7 +57,7 @@ export const Login: React.FC = () => {
 		const init = async () => {
 			const credentials = await getCredentials();
 			if (credentials) {
-				setFieldValue('username', credentials.email);
+				setFieldValue('email', credentials.email);
 				setFieldValue('password', 'password123');
 			}
 		};

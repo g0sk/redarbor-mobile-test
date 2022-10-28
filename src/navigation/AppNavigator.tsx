@@ -1,8 +1,10 @@
-import React from 'react';
+import * as React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import type { AppNavigatorParamList } from 'types';
 import { HeroesList } from 'screens/heroes/HeroesList';
 import { HeroeDetails } from 'screens/heroes/HeroeDetails';
+import { CachedRequestsProvider } from 'api/ApiRequestContextProvider';
+import { API_URL } from '@env';
 
 const Stack = createNativeStackNavigator<AppNavigatorParamList>();
 

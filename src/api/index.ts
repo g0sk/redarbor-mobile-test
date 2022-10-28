@@ -1,2 +1,8 @@
+import { API_URL } from '@env';
 import { create } from 'apisauce';
-//const api = create({});
+export const apiInstance = create({
+	baseURL: 'http://gateway.marvel.com/',
+	headers: {
+		'If-None-Match': 'alwaysdoit'
+	}
+});
