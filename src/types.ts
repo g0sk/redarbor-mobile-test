@@ -28,7 +28,26 @@ export type AuthParamList = {
 
 export type AppNavigatorParamList = {
 	HeroesList: undefined;
-	HeroeDetails: undefined;
+	HeroeDetails: {
+		hero: MarvelHero;
+	};
+};
+
+export type HeroDetailsScreenProps = {
+	hero: MarvelHero;
+};
+
+export type HeroesListRouteProp = RouteProp<
+	AppNavigatorParamList,
+	'HeroesList'
+>;
+export type HeroesListNavigationProp = NavigationProp<
+	AppNavigatorParamList,
+	'HeroesList'
+>;
+export type HeroesListScreenProps = {
+	navigation?: HeroesListNavigationProp;
+	route?: HeroesListRouteProp;
 };
 
 export type HeroDetailsRouteProp = RouteProp<
@@ -39,10 +58,6 @@ export type HeroDetailsNavigationProp = NavigationProp<
 	AppNavigatorParamList,
 	'HeroeDetails'
 >;
-export type HeroDetailsScreenProps = {
-	navigation: HeroDetailsNavigationProp;
-	route: HeroDetailsRouteProp;
-};
 
 //Components
 export type ButtonProps = SpacingProps<Theme> &
@@ -55,6 +70,12 @@ export type ButtonProps = SpacingProps<Theme> &
 		loading?: boolean;
 		disabled?: boolean;
 	};
+
+export type HeroListItemProps = {
+	hero: MarvelHero;
+};
+
+//Marvel api
 
 export type MarvelHero = {
 	id: number;
@@ -118,8 +139,69 @@ export type MarvelHero = {
 		}
 	];
 };
-//Marvel api
-export type MarvelHeroData = Array<MarvelHero>;
+
+export type MarvelHeroData = Array<{
+	id: number;
+	name: string;
+	description: string;
+	modified: string;
+	thumbnail: {
+		path: string;
+		extension: string;
+	};
+	resourceUri: string;
+	comics: {
+		available: number;
+		collectionURI: string;
+		items: [
+			{
+				resourceURI: string;
+				name: string;
+			}
+		];
+		returned: number;
+	};
+	series: {
+		available: number;
+		collectionURI: string;
+		items: [
+			{
+				resourceURI: string;
+				name: string;
+			}
+		];
+		returned: number;
+	};
+	stories: {
+		available: number;
+		collectionURI: string;
+		items: [
+			{
+				resourceURI: string;
+				name: string;
+				type: string;
+			}
+		];
+		returned: number;
+	};
+	events: {
+		available: number;
+		collectionURI: string;
+		items: [
+			{
+				resourceURI: string;
+				name: string;
+			}
+		];
+		returned: number;
+	};
+	urls: [
+		{
+			type: string;
+			url: string;
+		}
+	];
+}>;
 
 export type MarvelComicData = Array<{
 	id: number;
@@ -183,7 +265,7 @@ export type MarvelComicData = Array<{
 			price: number;
 		}
 	];
-	thumbnaiL: {
+	thumbnail: {
 		path: string;
 		extension: string;
 	};
@@ -225,41 +307,133 @@ export type MarvelComicData = Array<{
 	};
 }>;
 
+export type MarvelComic = {
+	id: number;
+	digitalId: number;
+	title: string;
+	issueNumber: number;
+	variantDescription: string;
+	description: string;
+	modified: string;
+	isbn: string;
+	upc: string;
+	diamondCode: string;
+	ean: string;
+	issn: string;
+	format: string;
+	pageCount: number;
+	textObjects: [
+		{
+			type: string;
+			language: string;
+			text: string;
+		}
+	];
+	resourceURI: string;
+	urls: [
+		{
+			type: string;
+			url: string;
+		}
+	];
+	series: {
+		resourceURI: string;
+		name: string;
+	};
+	variants: [
+		{
+			resourceURI: string;
+			name: string;
+		}
+	];
+	collections: [
+		{
+			resourceURI: string;
+			name: string;
+		}
+	];
+	collectedIssues: [
+		{
+			resourceURI: string;
+		}
+	];
+	dates: [
+		{
+			type: string;
+			date: string;
+		}
+	];
+	prices: [
+		{
+			type: string;
+			price: number;
+		}
+	];
+	thumbnail: {
+		path: string;
+		extension: string;
+	};
+	images: [{ path: string; extension: string }];
+	creators: {
+		available: number;
+		collectionURI: string;
+		items: [
+			{
+				resourceURI: string;
+				name: string;
+				role: string;
+			}
+		];
+		returned: number;
+	};
+	characters: {
+		available: number;
+		collectionURI: string;
+		items: [{ resourceURI: string; name: string }];
+		returned: number;
+	};
+	stories: {
+		available: number;
+		collectionURI: string;
+		items: [{ resourceURI: string; name: string; type: string }];
+		returned: number;
+	};
+	events: {
+		available: number;
+		collectionURI: string;
+		items: [
+			{
+				resourceURI: string;
+				name: string;
+			}
+		];
+		returned: number;
+	};
+};
+
 export type MarvelHeroesListResponse = {
 	//TODO: tipar las respuestas de API para listado de héroes
-	attributionHTML: string;
-	attributionText: string;
-	code: number;
-	copyright: string;
 	data: {
-		count: number;
-		limit: number;
-		offset: number;
 		results: MarvelHeroData;
 	};
 };
 
 export type MarvelHeroComicsListResponse = {
 	//TODO: tipar las respuestas de API para listado de cómics de un héroe
-	attributionHTML: string;
-	attributionText: string;
-	code: number;
-	copyright: string;
 	data: {
-		count: number;
-		limit: number;
-		offset: number;
 		results: MarvelComicData;
 	};
+};
+
+export type ComicListItemProps = {
+	comic: MarvelComic;
 };
 
 export type MarvelResponse =
 	| MarvelHeroesListResponse
 	| MarvelHeroComicsListResponse;
 
-export type MarvelData = {
-	[key in string]: MarvelHeroData | MarvelComicData;
-};
+export type MarvelData = MarvelHeroData | MarvelComicData;
 
 export type ContextStateUninitialized = {
 	url?: undefined;
@@ -294,8 +468,7 @@ export type ApiRequestContextState<T> =
 
 export interface IActions {
 	paginate(): void;
-	getHeroes(): void;
-	getHeroComics(): void;
+	refresh(): void;
 }
 export type Props = {
 	url: string;

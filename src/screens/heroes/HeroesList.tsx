@@ -1,31 +1,56 @@
 import * as React from 'react';
 import { Text, View, Button } from 'components';
-import { FlatList } from 'react-native';
-import type { MarvelHeroData } from 'types';
-import { useCachedRequests } from 'api/ApiRequestContextProvider';
+import { ActivityIndicator, Dimensions, FlatList } from 'react-native';
+import type { HeroesListScreenProps, MarvelHeroData } from 'types';
+import {
+	CachedRequestsProvider,
+	useCachedRequests
+} from 'api/ApiRequestContextProvider';
 import { HeroeListItem } from './HeroeListItem';
 import { useEffect } from 'react';
+import { API_URL } from '@env';
 
-export const HeroesList = () => {
+const { height } = Dimensions.get('window');
+
+const HeroesList: React.FC = () => {
 	const [state, actions] = useCachedRequests();
-
-	useEffect(() => {
-		actions.getHeroes();
-	}, []);
 
 	return (
 		<View flex={1} flexDirection="column">
-			<View>
-				<Text>Marvel heroes list</Text>
-			</View>
-			<Button label="press" onPress={() => actions.getHeroes()} />
-			<View marginVertical="l">
-				<FlatList
-					data={state.data?.[state.url] as MarvelHeroData}
-					renderItem={({ item }) => <HeroeListItem hero={item} />}
-					keyExtractor={(item, index) => index.toString()}
+			{state.isFetching && !state.data ? (
+				<ActivityIndicator
+					color="black"
+					size="large"
+					animating={state.isFetching}
 				/>
-			</View>
+			) : (
+				<View>
+					<View>
+						<Text>Marvel heroes list</Text>
+					</View>
+					<View height={height}>
+						<FlatList
+							data={state.data?.[state.url] as MarvelHeroData}
+							renderItem={({ item }) => <HeroeListItem {...{ hero: item }} />}
+							keyExtractor={(item, index) => index.toString()}
+							refreshing={state.isFetching}
+							onRefresh={() => actions.refresh()}
+							onEndReached={() => actions.paginate()}
+							onEndReachedThreshold={0.7}
+						/>
+					</View>
+				</View>
+			)}
 		</View>
 	);
 };
+
+export function CachedHeroList() {
+	return (
+		<CachedRequestsProvider
+			url={`${API_URL}/v1/public/characters`}
+			maxResultsPerPage={10}>
+			<HeroesList />
+		</CachedRequestsProvider>
+	);
+}

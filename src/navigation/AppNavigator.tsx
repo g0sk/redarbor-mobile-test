@@ -1,10 +1,8 @@
 import * as React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import type { AppNavigatorParamList } from 'types';
-import { HeroesList } from 'screens/heroes/HeroesList';
-import { HeroeDetails } from 'screens/heroes/HeroeDetails';
-import { CachedRequestsProvider } from 'api/ApiRequestContextProvider';
-import { API_URL } from '@env';
+import { CachedHeroList } from 'screens/heroes/HeroesList';
+import { CachedHeroDetails } from 'screens/heroes/HeroeDetails';
 
 const Stack = createNativeStackNavigator<AppNavigatorParamList>();
 
@@ -17,8 +15,8 @@ const AppNavigator = () => {
 				presentation: 'card',
 				headerShown: false
 			}}>
-			<Stack.Screen name="HeroesList" component={HeroesList} />
-			<Stack.Screen name="HeroeDetails" component={HeroeDetails} />
+			<Stack.Screen name="HeroesList" component={CachedHeroList} />
+			<Stack.Screen name="HeroeDetails" component={CachedHeroDetails} />
 		</Stack.Navigator>
 	);
 };

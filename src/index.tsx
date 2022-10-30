@@ -4,16 +4,15 @@ import { AuthProvider } from 'core/AuthProvider';
 import { ThemeProvider } from 'theme';
 import { CachedRequestsProvider } from 'api/ApiRequestContextProvider';
 import { API_URL } from '@env';
+import { HeroProvider } from 'core/HeroProvider';
 
 const App = () => {
 	return (
 		<AuthProvider>
 			<ThemeProvider>
-				<CachedRequestsProvider
-					maxResultsPerPage={10}
-					url={`${API_URL}/v1/public/characters`}>
+				<HeroProvider>
 					<RootNavigator />
-				</CachedRequestsProvider>
+				</HeroProvider>
 			</ThemeProvider>
 		</AuthProvider>
 	);

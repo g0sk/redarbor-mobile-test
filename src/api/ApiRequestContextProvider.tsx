@@ -41,7 +41,7 @@ type ProxyHandler<T, P extends string> = {
 declare const Proxy: {
 	new <T extends object>(
 		target: {
-			data: { results: { [key in string]: T } };
+			data: { results: { [key in string]?: T } };
 			apiInstance: ApisauceInstance;
 		},
 		handler: ProxyHandler<T, string>
@@ -60,7 +60,7 @@ const marvelProxy = new Proxy<MarvelResponse>(
 			target: {
 				data: {
 					results: {
-						[key in string]: T;
+						[key in string]?: T;
 					};
 				};
 			},
@@ -78,7 +78,7 @@ const marvelProxy = new Proxy<MarvelResponse>(
 						target as {
 							data: {
 								results: {
-									[key in string]: T;
+									[key in string]?: T;
 								};
 							};
 							apiInstance: ApisauceInstance;
@@ -97,13 +97,13 @@ const marvelProxy = new Proxy<MarvelResponse>(
 							target as {
 								data: {
 									results: {
-										[key in string]: T;
+										[key in string]?: T;
 									};
 								};
 							}
 						).data.results[url] = data.data.results;
-
-						return data.data.results;
+						resolve(data.data.results);
+						return;
 					}
 				} catch (e) {
 					reject(e);
@@ -123,8 +123,7 @@ const ApiRequestContext = createContext<
 	initialState as ContextStateUninitialized,
 	{
 		paginate: () => undefined,
-		getHeroes: async () => ({} as MarvelHeroesListResponse),
-		getHeroComics: async () => ({} as MarvelHeroComicsListResponse)
+		refresh: () => undefined
 	}
 ]);
 function getAuthQueryStringParams(): {
@@ -203,26 +202,19 @@ export function CachedRequestsProvider({
 				isFetching: false,
 				data: {
 					...(state.data ?? {}),
-					[url]: value
+					[url]: state.data ? [...state.data[url], ...value] : value
 				}
 			} as ContextStateFetched<MarvelData>);
 		});
 	}, [page, url]);
 
-	const paginate = () => {};
-	const getHeroes = () => {
-		marvelProxy[getNavigatableUrl()].then((value) => {
-			setState({
-				...state,
-				isFetching: false,
-				data: {
-					...(state.data ?? {}),
-					[url]: value
-				}
-			} as ContextStateFetched<MarvelData>);
-		});
+	const paginate = () => {
+		setPage(page + 1);
 	};
-	const getHeroComics = () => ({} as MarvelHeroComicsListResponse);
+
+	const refresh = () => {
+		setPage(0);
+	};
 
 	return (
 		<ApiRequestContext.Provider
@@ -230,8 +222,7 @@ export function CachedRequestsProvider({
 				state,
 				{
 					paginate,
-					getHeroes,
-					getHeroComics
+					refresh
 				}
 			]}>
 			{children}
@@ -243,5 +234,7 @@ export const useCachedRequests = (): [
 	ApiRequestContextState<MarvelData>,
 	IActions
 ] => {
-	return useContext(ApiRequestContext);
+	const context = useContext(ApiRequestContext);
+
+	return context;
 };
