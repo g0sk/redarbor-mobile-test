@@ -22,6 +22,7 @@ import {
 	Props,
 	MarvelHeroComicsListResponse
 } from 'types';
+import { apiInstance } from 'api';
 
 const initialState = {
 	isFetching: false
@@ -49,10 +50,7 @@ declare const Proxy: {
 
 const marvelProxy = new Proxy<MarvelResponse>(
 	{
-		apiInstance: create({
-			baseURL: 'https://developer.marvel.com',
-			headers: { 'If-None-Match': '123' }
-		}),
+		apiInstance,
 		data: {
 			results: {}
 		}
