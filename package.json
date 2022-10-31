@@ -20,6 +20,7 @@
     "react-native": "0.63.0",
     "react-native-dotenv": "2.5.3",
     "react-native-keyboard-aware-scroll-view": "0.9.4",
+    "react-native-modal": "^13.0.1",
     "react-native-safe-area-context": "3.2.0",
     "react-native-screens": "3.1.1",
     "react-native-sensitive-info": "^6.0.0-alpha.9",

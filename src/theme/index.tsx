@@ -90,61 +90,82 @@ const theme = createTheme({
 			color: 'darkText',
 			fontWeight: 'bold',
 			fontSize: 20
+		},
+		heroDescription: {
+			textAlign: 'justify',
+			lineHeight: 26,
+			fontSize: 20
+		},
+		errorHeader: {
+			color: 'darkText',
+			fontWeight: 'bold',
+			fontSize: 30
+		},
+		emptyHeader: {
+			color: 'darkText',
+			fontWeight: 'bold',
+			fontSize: 25
+		},
+		button_disabled: {
+			color: 'lightText'
+		},
+		button_primary: {
+			color: 'lightText'
+		},
+		button_secondary: {
+			color: 'lightText',
+			fontSize: 15
+		},
+		checkBox: {
+			color: 'description',
+			fontSize: 12
+		},
+		header1: {
+			color: 'darkText',
+			fontWeight: 'bold',
+			fontSize: 28
+		},
+		header2: {
+			color: 'darkText',
+			fontSize: 24
+		},
+		listItemPrimary: {
+			fontSize: 17,
+			fontWeight: 'bold',
+			color: 'darkText'
+		},
+		listItemData: {
+			fontSize: 13,
+			color: 'darkText'
+		},
+		formLabel: {
+			fontSize: 19,
+			fontWeight: 'bold'
+		},
+		dataLabel: {
+			fontSize: 15,
+			fontWeight: 'bold'
+		},
+		description: {
+			color: 'description',
+			fontSize: 16,
+			lineHeight: 22,
+			textAlign: 'justify'
+		},
+		version: {
+			fontSize: 13,
+			color: 'description'
 		}
 	},
 	buttonVariants: {
-		logOutDrawer: {
-			backgroundColor: 'primary',
-			width: 130,
-			height: 35,
-			borderRadius: 7
-		},
 		primary: {
 			backgroundColor: 'primary'
 		},
 		secondary: {
 			backgroundColor: 'secondary'
 		},
-		edit: {
-			backgroundColor: 'secondary',
-			width: 70,
-			height: 28,
-			paddingHorizontal: 's',
-			paddingVertical: 'ss',
-			borderRadius: 10,
-			alignItems: 'center'
-		},
-		upload: {
-			backgroundColor: 'primary',
-			width: 300,
-			height: 35,
-			borderRadius: 10,
-			alignItems: 'center'
-		},
-		select: {
-			backgroundColor: 'primary',
-			width: 59,
-			height: 28,
-			paddingHorizontal: 's',
-			paddingVertical: 'ss',
-			borderRadius: 10,
-			alignItems: 'center'
-		},
 		disabled: {
 			backgroundColor: 'disabled'
-		},
-		delete: {
-			backgroundColor: 'error'
-		},
-		create: {
-			backgroundColor: 'secondary'
-		},
-		write: {
-			backgroundColor: 'darkText',
-			width: 90,
-			heigth: 60,
-			paddingVertical: 's',
-			alignItems: 'center'
 		}
 	},
 	navigation: {

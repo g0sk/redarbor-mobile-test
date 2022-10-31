@@ -6,7 +6,8 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 import {
 	ImageBackground,
 	Dimensions,
-	TextInput as RNTextInput
+	TextInput as RNTextInput,
+	ToastAndroid
 } from 'react-native';
 import { Button, CheckBox, Text, TextInput, View } from 'components';
 import { getCredentials, setCredentials } from 'utils/storage';
@@ -39,6 +40,7 @@ export const Login: React.FC = () => {
 		handleBlur,
 		handleSubmit,
 		errors,
+		setErrors,
 		touched,
 		values,
 		setFieldValue,
@@ -66,12 +68,23 @@ export const Login: React.FC = () => {
 
 	const login = ({ email, password, saveCredentials }: FormLoginValues) => {
 		setLoading(true);
-		if (saveCredentials) {
-			setCredentials({ email, name: 'user', lastName: 'larvel' });
-		}
 		signIn({
 			user: { email, name: 'user', lastName: 'larvel' }
-		});
+		})
+			.then(() => {
+				if (saveCredentials) {
+					setCredentials({ email, name: 'user', lastName: 'larvel' });
+				}
+			})
+			.catch((errorMessage) => {
+				setErrors({ email: 'Email invalid' });
+				setLoading(false);
+				ToastAndroid.showWithGravity(
+					errorMessage,
+					ToastAndroid.BOTTOM,
+					ToastAndroid.SHORT
+				);
+			});
 	};
 
 	return (
@@ -103,7 +116,7 @@ export const Login: React.FC = () => {
 										ref={userNameRef}
 										placeholder="Introducir email"
 										autoCapitalize="none"
-										autoComplete="email"
+										autoCompleteType="email"
 										value={values.email}
 										onChangeText={handleChange('email')}
 										onBlur={handleBlur('username')}
@@ -120,7 +133,7 @@ export const Login: React.FC = () => {
 											secureTextEntry={true}
 											autoCapitalize="none"
 											value={values.password}
-											autoComplete="password"
+											autoCompleteType="password"
 											onChangeText={handleChange('password')}
 											onBlur={handleBlur('password')}
 											error={errors.password}

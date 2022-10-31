@@ -2,9 +2,9 @@ import * as React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import AuthNavigator from './AuthNavigator';
 import NavigationContainer from './NavigationContainer';
-import AppNavigator from './AppNavigator';
 import { useAuth } from 'core/AuthProvider';
 import type { RootNavigatorParamList } from 'types';
+import AppNavigator from './AppNavigator';
 
 const Stack = createNativeStackNavigator<RootNavigatorParamList>();
 

@@ -1,12 +1,11 @@
-import { NavigationProp, RouteProp } from '@react-navigation/native';
 import {
 	BackgroundColorProps,
 	BorderProps,
 	SpacingProps,
 	VariantProps
 } from '@shopify/restyle';
-import { getHeroComics, getHeroes } from 'api/HeroApi';
 import { ApisauceInstance } from 'apisauce';
+import { Dispatch, SetStateAction } from 'react';
 import { Theme } from 'theme';
 
 export type Credentials = {
@@ -28,38 +27,26 @@ export type AuthParamList = {
 
 export type AppNavigatorParamList = {
 	HeroesList: undefined;
-	HeroeDetails: {
+	HeroDetails: {
 		hero: MarvelHero;
+		title: string;
 	};
+	Profile: undefined;
 };
 
 export type HeroDetailsScreenProps = {
 	hero: MarvelHero;
 };
 
-export type HeroesListRouteProp = RouteProp<
-	AppNavigatorParamList,
-	'HeroesList'
->;
-export type HeroesListNavigationProp = NavigationProp<
-	AppNavigatorParamList,
-	'HeroesList'
->;
-export type HeroesListScreenProps = {
-	navigation?: HeroesListNavigationProp;
-	route?: HeroesListRouteProp;
-};
-
-export type HeroDetailsRouteProp = RouteProp<
-	AppNavigatorParamList,
-	'HeroeDetails'
->;
-export type HeroDetailsNavigationProp = NavigationProp<
-	AppNavigatorParamList,
-	'HeroeDetails'
->;
-
 //Components
+
+export interface ModalProps {
+	children: React.ReactNode;
+	show: boolean;
+	setVisibility: Dispatch<SetStateAction<boolean>>;
+	onClose?: () => void;
+}
+
 export type ButtonProps = SpacingProps<Theme> &
 	VariantProps<Theme, 'buttonVariants'> &
 	BorderProps<Theme> &

@@ -1,5 +1,5 @@
 import { API_HASH, API_PRIVATE_KEY, API_PUBLIC_KEY } from '@env';
-import { ApisauceInstance, create } from 'apisauce';
+import { ApisauceInstance } from 'apisauce';
 import { URL, URLSearchParams } from 'react-native-url-polyfill';
 import * as React from 'react';
 import {
@@ -16,11 +16,8 @@ import {
 	ContextStateUninitialized,
 	IActions,
 	MarvelData,
-	MarvelHeroData,
 	MarvelResponse,
-	MarvelHeroesListResponse,
-	Props,
-	MarvelHeroComicsListResponse
+	Props
 } from 'types';
 import { apiInstance } from 'api';
 

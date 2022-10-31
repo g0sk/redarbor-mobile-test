@@ -2,7 +2,8 @@ import * as React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import type { AppNavigatorParamList } from 'types';
 import { CachedHeroList } from 'screens/heroes/HeroesList';
-import { CachedHeroDetails } from 'screens/heroes/HeroeDetails';
+import { CachedHeroDetails } from 'screens/heroes/HeroDetails';
+import { Profile } from 'screens/profile/Profile';
 
 const Stack = createNativeStackNavigator<AppNavigatorParamList>();
 
@@ -17,9 +18,24 @@ const AppNavigator = () => {
 			<Stack.Screen
 				name="HeroesList"
 				component={CachedHeroList}
-				options={{ headerShown: false, headerStyle: {} }}
+				options={{ headerShown: false }}
 			/>
-			<Stack.Screen name="HeroeDetails" component={CachedHeroDetails} />
+			<Stack.Screen
+				name="HeroDetails"
+				component={CachedHeroDetails}
+				options={({ route }) => ({
+					headerShown: true,
+					title: route.params.title
+				})}
+			/>
+			<Stack.Screen
+				name="Profile"
+				component={Profile}
+				options={{
+					headerShown: true,
+					headerTransparent: true
+				}}
+			/>
 		</Stack.Navigator>
 	);
 };

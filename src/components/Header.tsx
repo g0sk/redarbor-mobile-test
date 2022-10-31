@@ -1,9 +1,11 @@
-import { View, Text, Button } from 'components';
-import { useAuth } from 'core/AuthProvider';
-import { Alert } from 'react-native';
+import { View, Text } from 'components';
 import * as React from 'react';
+import { SmallAvatar } from './SmallAvatar';
+import { TouchableOpacity } from 'react-native';
 
-export const Header = () => {
+export const Header: React.FC<{ defaultAction: () => void }> = ({
+	defaultAction
+}) => {
 	return (
 		<View
 			flex={1}
@@ -11,7 +13,14 @@ export const Header = () => {
 			marginHorizontal="l"
 			alignItems="center"
 			justifyContent="space-between">
-			<Text variant="headerTitle">Marvel heroes</Text>
+			<View>
+				<TouchableOpacity onPress={() => defaultAction()}>
+					<Text variant="headerTitle">Marvel heroes</Text>
+				</TouchableOpacity>
+			</View>
+			<View>
+				<SmallAvatar />
+			</View>
 		</View>
 	);
 };

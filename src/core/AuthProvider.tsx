@@ -53,9 +53,9 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 					if (credentials) {
 						if (credentials.email === 'user@user.com') {
 							dispatch({ type: 'SIGN_IN', user: credentials });
+							resolve(credentials);
 						}
 					}
-					resolve(credentials);
 				} catch (e) {
 					reject(e);
 					dispatch({ type: 'SIGN_OUT' });
@@ -70,8 +70,19 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
 	const authActions: AuthContextActions = React.useMemo(
 		() => ({
-			signIn: async ({ user }: AuthPayload) => {
-				dispatch({ type: 'SIGN_IN', user });
+			signIn: async ({ user }: AuthPayload): Promise<User> => {
+				return new Promise<User>(async (resolve, reject) => {
+					try {
+						if (user.email === 'user@user.com') {
+							dispatch({ type: 'SIGN_IN', user });
+							resolve(user);
+						} else {
+							reject('User not valid');
+						}
+					} catch (e) {
+						reject(e);
+					}
+				});
 			},
 			signOut: async () => {
 				try {
