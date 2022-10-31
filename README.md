@@ -12,7 +12,7 @@ In order to connect to the [marvel api](https://https://developer.marvel.com/) a
 
 - API_URL = `https://gateway.marvel.com`
 - API_PUBLIC_KEY = `Your developer public key`
-- API_HASH = `md5_hash(API_PUBLIC_KEY + timestamp + 'API_PRIVATE_KEY')`
+- API_HASH = `md5_hash(API_PUBLIC_KEY + timestamp + API_PRIVATE_KEY)`
 
 # Errors
 
