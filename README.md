@@ -2,18 +2,17 @@
 
 Mobile app based on [React Native](https://reactnative.dev) v0.63.
 
-Libraries used:
+## Dowload and install the project
 
-- @react-navigation/native
-- @react-navigation/native-stack
+- `git clone https://github.com/g0sk/redarbor-mobile-test`
+- `cd redarbor-mobile-test`
+- `yarn install`
 
-Theme
+In order to connect to the [marvel api](https://https://developer.marvel.com/) a developer account is needed. Once created just initalize a .env file with:
 
-- @shopify/restyle
-
-Store credentials securely on device
-
-- react-native-sensitive-info
+- API_URL = `https://gateway.marvel.com`
+- API_PUBLIC_KEY = `Your developer public key`
+- API_HASH = md5_hash(API_PUBLIC_KEY + timestamp + 'API_PRIVATE_KEY')
 
 # Errors
 
