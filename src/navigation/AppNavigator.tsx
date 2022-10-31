@@ -12,10 +12,13 @@ const AppNavigator = () => {
 			initialRouteName="HeroesList"
 			screenOptions={{
 				animation: 'slide_from_right',
-				presentation: 'card',
-				headerShown: false
+				presentation: 'card'
 			}}>
-			<Stack.Screen name="HeroesList" component={CachedHeroList} />
+			<Stack.Screen
+				name="HeroesList"
+				component={CachedHeroList}
+				options={{ headerShown: false, headerStyle: {} }}
+			/>
 			<Stack.Screen name="HeroeDetails" component={CachedHeroDetails} />
 		</Stack.Navigator>
 	);

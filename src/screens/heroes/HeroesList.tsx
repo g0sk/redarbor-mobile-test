@@ -1,13 +1,12 @@
 import * as React from 'react';
-import { Text, View, Button } from 'components';
+import { Header, View } from 'components';
 import { ActivityIndicator, Dimensions, FlatList } from 'react-native';
-import type { HeroesListScreenProps, MarvelHeroData } from 'types';
+import type { MarvelHeroData } from 'types';
 import {
 	CachedRequestsProvider,
 	useCachedRequests
 } from 'api/ApiRequestContextProvider';
 import { HeroeListItem } from './HeroeListItem';
-import { useEffect } from 'react';
 import { API_URL } from '@env';
 
 const { height } = Dimensions.get('window');
@@ -17,28 +16,28 @@ const HeroesList: React.FC = () => {
 
 	return (
 		<View flex={1} flexDirection="column">
+			<View height={80}>
+				<Header />
+			</View>
 			{state.isFetching && !state.data ? (
-				<ActivityIndicator
-					color="black"
-					size="large"
-					animating={state.isFetching}
-				/>
+				<View alignItems="center" justifyContent="center" height={height - 200}>
+					<ActivityIndicator
+						color="black"
+						size="large"
+						animating={state.isFetching}
+					/>
+				</View>
 			) : (
-				<View>
-					<View>
-						<Text>Marvel heroes list</Text>
-					</View>
-					<View height={height}>
-						<FlatList
-							data={state.data?.[state.url] as MarvelHeroData}
-							renderItem={({ item }) => <HeroeListItem {...{ hero: item }} />}
-							keyExtractor={(item, index) => index.toString()}
-							refreshing={state.isFetching}
-							onRefresh={() => actions.refresh()}
-							onEndReached={() => actions.paginate()}
-							onEndReachedThreshold={0.7}
-						/>
-					</View>
+				<View height={height - 80}>
+					<FlatList
+						data={state.data?.[state.url] as MarvelHeroData}
+						renderItem={({ item }) => <HeroeListItem {...{ hero: item }} />}
+						keyExtractor={(item, index) => index.toString()}
+						refreshing={state.isFetching}
+						onRefresh={() => actions.refresh()}
+						onEndReached={() => actions.paginate()}
+						onEndReachedThreshold={1.4}
+					/>
 				</View>
 			)}
 		</View>

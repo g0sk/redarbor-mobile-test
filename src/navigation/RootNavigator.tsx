@@ -15,7 +15,7 @@ export const RootStack = () => {
 			screenOptions={{
 				headerShown: false
 			}}>
-			{status === 'signIn' ? (
+			{status === 'signOut' ? (
 				<Stack.Screen name="Auth" component={AuthNavigator} />
 			) : (
 				<Stack.Screen name="App" component={AppNavigator} />

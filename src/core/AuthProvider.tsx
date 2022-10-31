@@ -18,7 +18,6 @@ type AuthPayload = { user: User };
 interface AuthContextActions {
 	signIn: (data: AuthPayload) => void;
 	signOut: () => void;
-	getUserData: () => void;
 }
 
 interface AuthContextType extends AuthState, AuthContextActions {}
@@ -26,8 +25,7 @@ const AuthContext = React.createContext<AuthContextType>({
 	status: 'signOut',
 	user: null,
 	signIn: () => {},
-	signOut: () => {},
-	getUserData: () => {}
+	signOut: () => {}
 });
 
 // In case you want to use Auth functions outside React tree
@@ -49,18 +47,20 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
 	React.useEffect(() => {
 		const initState = async () => {
-			//Fetch token, refrestoken and user info (fake call)
-			try {
-				const credentials = (await getCredentials()) as User;
-				if (credentials) {
-					if (credentials.email === 'user@user.com') {
-						dispatch({ type: 'SIGN_IN', user: credentials });
+			return new Promise(async (resolve, reject) => {
+				try {
+					const credentials = (await getCredentials()) as User;
+					if (credentials) {
+						if (credentials.email === 'user@user.com') {
+							dispatch({ type: 'SIGN_IN', user: credentials });
+						}
 					}
+					resolve(credentials);
+				} catch (e) {
+					reject(e);
+					dispatch({ type: 'SIGN_OUT' });
 				}
-				dispatch({ type: 'SIGN_OUT' });
-			} catch (e) {
-				throw e;
-			}
+			});
 		};
 
 		initState();
@@ -74,15 +74,12 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 				dispatch({ type: 'SIGN_IN', user });
 			},
 			signOut: async () => {
-				dispatch({ type: 'SIGN_OUT' });
 				try {
 					await removeCredentials();
 				} catch (e) {
 					console.error("Couldn't remove credentials from device");
 				}
-			},
-			getUserData: () => {
-				return state.user;
+				dispatch({ type: 'SIGN_OUT' });
 			}
 		}),
 		[]

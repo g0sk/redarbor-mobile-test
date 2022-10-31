@@ -40,7 +40,8 @@ const BaseTheme = {
 		primary: 'black',
 		primaryLight: '#a389fa',
 		secondary: '#ffc107',
-		white: '#fff'
+		white: '#fff',
+		lightGrey: '#b4b4b4'
 	},
 	borderRadius: {
 		s: 4,
@@ -80,234 +81,15 @@ const BaseTheme = {
 const theme = createTheme({
 	...BaseTheme,
 	textVariants: {
-		orangeText: {
-			color: 'orange',
-			fontWeight: 'bold'
-		},
-		boldText: {
-			fontWeight: 'bold'
-		},
-		activeTypeCardAttributes: {
-			color: 'darkText',
-			fontWeight: 'bold'
-		},
-		drawerName: {
-			color: 'white',
-			fontWeight: 'bold',
-			fontSize: 19
-		},
-		drawerItem: {
-			color: 'darkText',
-			fontWeight: 'bold',
-			fontSize: 16
-		},
-		drawerEmail: {
-			color: 'white',
-			fontSize: 15
-		},
-		errorHeader: {
-			color: 'darkText',
-			fontWeight: 'bold',
-			fontSize: 30
-		},
-		filter: {
-			fontSize: 13,
-			color: 'lightText'
-		},
-		recordFilter: {
-			fontWeight: 'bold',
-			fontSize: 17
-		},
-		recordStats: {
-			fontWeight: 'bold',
-			color: 'lightText',
-			fontSize: 17
-		},
-		segmentLabelDark: {
-			color: 'dark',
-			fontSize: 15
-		},
-		segmentLabelLight: {
-			color: 'lightText',
-			fontSize: 15
-		},
-		emptyHeader: {
-			color: 'darkText',
-			fontWeight: 'bold',
-			fontSize: 25
-		},
-		updated: {
-			color: 'darkText',
-			fontWeight: 'bold',
-			fontSize: 18
-		},
 		headerTitle: {
 			color: 'darkText',
 			fontWeight: 'bold',
 			fontSize: 30
 		},
-		errorDescription: {
-			color: 'error',
-			fontSize: 27,
-			textAlign: 'center'
-		},
-		scanErrorHeader: {
-			color: 'error',
-			fontSize: 30,
-			textAlign: 'center'
-		},
-		scanSuccessHeader: {
-			color: 'primary',
-			fontSize: 30,
-			textAlign: 'center'
-		},
-		scanWarningHeader: {
-			color: 'secondary',
-			fontSize: 30,
-			textAlign: 'center'
-		},
-		scanDescription: {
-			color: 'darkText',
-			fontSize: 16,
-			lineHeight: 22,
-			textAlign: 'justify'
-		},
-		scanSuccessData: {
-			color: 'darkText',
-			fontSize: 17,
-			lineHeight: 30,
-			textAlign: 'justify',
-			fontWeight: 'bold'
-		},
-		scanSuccessId: {
-			color: 'primary',
-			fontSize: 17,
-			lineHeight: 30,
-			textAlign: 'justify',
-			fontWeight: 'bold'
-		},
-		scanSuccessDescription: {
-			color: 'primary',
-			fontSize: 16,
-			lineHeight: 30,
-			textAlign: 'justify'
-		},
-		scanErrorDescription: {
-			color: 'darkText',
-			fontSize: 19,
-			lineHeight: 30,
-			textAlign: 'justify',
-			fontWeight: 'bold'
-		},
-		scanWarningDescription: {
-			color: 'darkText',
-			fontSize: 16,
-			lineHeight: 22,
-			textAlign: 'justify'
-		},
-		scanHeader: {
-			color: 'darkText',
-			fontSize: 30,
-			textAlign: 'center'
-		},
-		scanMode: {
-			color: 'darkText',
-			fontSize: 19,
-			fontWeight: 'bold'
-		},
-		button_logOutDrawer: {
-			color: 'white'
-		},
-		button_disabled: {
-			color: 'lightText'
-		},
-		button_edit: {
-			color: 'white',
-			fontSize: 12
-		},
-		button_select: {
-			color: 'white',
-			fontSize: 12
-		},
-		button_upload: {
-			color: 'lightText'
-		},
-		button_primary: {
-			color: 'lightText'
-		},
-		button_delete: {
-			color: 'lightText',
-			fontSize: 15
-		},
-		button_create: {
-			color: 'lightText',
-			fontSize: 15
-		},
-		button_secondary: {
-			color: 'lightText',
-			fontSize: 15
-		},
-		button_write: {
-			color: 'lightText',
-			fontSize: 12
-		},
-		checkBox: {
-			color: 'description',
-			fontSize: 12
-		},
-		header1: {
+		cardTitle: {
 			color: 'darkText',
 			fontWeight: 'bold',
-			fontSize: 28
-		},
-		header2: {
-			color: 'darkText',
-			fontSize: 24
-		},
-		headerUsername: {
-			color: 'darkText',
-			fontSize: 19
-		},
-		body: {
-			color: 'darkText',
-			fontSize: 16,
-			lineHeight: 24
-		},
-		description: {
-			color: 'description',
-			fontSize: 16,
-			lineHeight: 22,
-			textAlign: 'justify'
-		},
-		tip: {
-			color: 'description',
-			fontSize: 18,
-			lineHeight: 23
-			//textAlign: 'justify',
-		},
-		placeholderText: {
-			color: 'placeholderText'
-		},
-		listItemPrimary: {
-			fontSize: 17,
-			fontWeight: 'bold',
-			color: 'darkText'
-		},
-		listItemData: {
-			fontSize: 13,
-			color: 'darkText'
-		},
-		formLabel: {
-			fontSize: 19,
-			fontWeight: 'bold'
-		},
-		dataLabel: {
-			fontSize: 15,
-			fontWeight: 'bold'
-		},
-		version: {
-			fontSize: 13,
-			color: 'description'
+			fontSize: 20
 		}
 	},
 	buttonVariants: {

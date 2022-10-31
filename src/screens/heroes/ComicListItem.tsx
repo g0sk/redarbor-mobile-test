@@ -25,7 +25,6 @@ export const ComicListItem: React.FC<ComicListItemProps> = ({ comic }) => {
 			</View>
 			<View>
 				<Image
-					style={{ height: 100, width: 100, borderRadius: 50 }}
 					source={{
 						uri:
 							comic.thumbnail.path +

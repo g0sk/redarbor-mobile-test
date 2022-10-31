@@ -2,7 +2,7 @@ import React, { useContext, useState } from 'react';
 import { MarvelHero } from 'types';
 
 type ContextValues = {
-	Hero: MarvelHero | null;
+	hero: MarvelHero | null;
 	setHero: (hero: MarvelHero) => void;
 };
 
@@ -10,20 +10,20 @@ export const HeroContext: React.Context<ContextValues> =
 	React.createContext<ContextValues>({} as ContextValues);
 
 export const useHero = () => {
-	const { Hero, setHero } = useContext(HeroContext);
+	const { hero, setHero } = useContext(HeroContext);
 	return {
-		Hero,
+		hero,
 		setHero
 	};
 };
 
 export const HeroProvider: React.FC = ({ children }) => {
-	const [Hero, setHero] = useState<MarvelHero | null>(null);
+	const [hero, setHero] = useState<MarvelHero | null>(null);
 
 	return (
 		<HeroContext.Provider
 			value={{
-				Hero,
+				hero,
 				setHero
 			}}>
 			{children}

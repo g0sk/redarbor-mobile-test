@@ -7,51 +7,51 @@ import {
 } from 'api/ApiRequestContextProvider';
 import { API_URL } from '@env';
 import { useHero } from 'core/HeroProvider';
-import { Dimensions, FlatList, Image } from 'react-native';
+import { Dimensions, FlatList, Image, ImageBackground } from 'react-native';
 import { ComicListItem } from './ComicListItem';
-import { useAuth } from 'core/AuthProvider';
 
 const { height } = Dimensions.get('window');
 
 export const HeroDetails: React.FC = () => {
-	const { Hero } = useHero();
+	const { hero } = useHero();
 	const [state, actions] = useCachedRequests();
+	const HeaderComponent = () => {
+		return (
+			<ImageBackground
+				style={{ width: '100%', height: 300 }}
+				source={{
+					uri: `${hero?.thumbnail.path}/landscape_incredible.${hero?.thumbnail.extension}`
+				}}>
+				<View
+					flexDirection="row"
+					borderWidth={1}
+					borderColor="dark"
+					borderRadius={10}
+					marginVertical="m"
+					height={110}
+					padding="l"
+					justifyContent="space-between"
+					alignItems="center">
+					<View flexDirection="column">
+						<View marginBottom="l">
+							<Text>{hero?.name}</Text>
+						</View>
+						<View>
+							<Text>{`Cómics: ${hero?.comics.available}`}</Text>
+						</View>
+					</View>
+				</View>
+			</ImageBackground>
+		);
+	};
+
 	return (
 		<View>
-			<View
-				flexDirection="row"
-				borderWidth={1}
-				borderColor="dark"
-				borderRadius={10}
-				marginVertical="m"
-				height={110}
-				padding="l"
-				justifyContent="space-between"
-				alignItems="center">
-				<View flexDirection="column">
-					<View marginBottom="l">
-						<Text>{Hero?.name}</Text>
-					</View>
-					<View>
-						<Text>{`Cómics: ${Hero?.comics.available}`}</Text>
-					</View>
-				</View>
-				<View>
-					<Image
-						style={{ height: 100, width: 100, borderRadius: 50 }}
-						source={{
-							uri:
-								Hero?.thumbnail.path +
-								'/portrait_medium.' +
-								Hero?.thumbnail.extension
-						}}
-					/>
-				</View>
-			</View>
 			<View>
-				<View height={height - 110}>
+				<View height={height}>
 					<FlatList
 						data={state.data?.[state.url] as MarvelComicData}
+						ListHeaderComponent={<HeaderComponent />}
 						renderItem={({ item }) => <ComicListItem comic={item} />}
 						keyExtractor={(item, index) => index.toString()}
 						refreshing={state.isFetching}
@@ -66,11 +66,11 @@ export const HeroDetails: React.FC = () => {
 };
 
 export function CachedHeroDetails() {
-	const { Hero } = useHero();
+	const { hero } = useHero();
 
 	return (
 		<CachedRequestsProvider
-			url={`${API_URL}/v1/public/characters/${Hero?.id}/comics`}
+			url={`${API_URL}/v1/public/characters/${hero?.id}/comics`}
 			maxResultsPerPage={10}>
 			<HeroDetails />
 		</CachedRequestsProvider>
