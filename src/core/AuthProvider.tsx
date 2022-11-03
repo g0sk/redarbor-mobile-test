@@ -16,17 +16,12 @@ type AuthAction = { type: 'SIGN_IN'; user: User } | { type: 'SIGN_OUT' };
 type AuthPayload = { user: User };
 
 interface AuthContextActions {
-	signIn: (data: AuthPayload) => void;
+	signIn: (data: AuthPayload) => Promise<User>;
 	signOut: () => void;
 }
 
 interface AuthContextType extends AuthState, AuthContextActions {}
-const AuthContext = React.createContext<AuthContextType>({
-	status: 'signOut',
-	user: null,
-	signIn: () => {},
-	signOut: () => {}
-});
+const AuthContext = React.createContext<AuthContextType>({} as AuthContextType);
 
 // In case you want to use Auth functions outside React tree
 export const AuthRef = React.createRef<AuthContextActions>();

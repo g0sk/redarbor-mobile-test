@@ -33,7 +33,7 @@ const LoginSchema = Yup.object().shape({
 export const Login: React.FC = () => {
 	const { signIn } = useAuth();
 	const [loading, setLoading] = useState<boolean>(false);
-	const userNameRef = useRef<RNTextInput>(null);
+	const emailRef = useRef<RNTextInput>(null);
 	const passwordRef = useRef<RNTextInput>(null);
 	const {
 		handleChange,
@@ -64,16 +64,17 @@ export const Login: React.FC = () => {
 			}
 		};
 		init();
-	}, [setFieldValue, userNameRef]);
+	}, []);
 
 	const login = ({ email, password, saveCredentials }: FormLoginValues) => {
+		console.log('entro');
 		setLoading(true);
 		signIn({
-			user: { email, name: 'user', lastName: 'larvel' }
+			user: { email, name: 'user', lastName: 'user' }
 		})
 			.then(() => {
 				if (saveCredentials) {
-					setCredentials({ email, name: 'user', lastName: 'larvel' });
+					setCredentials({ email, name: 'user', lastName: 'user' });
 				}
 			})
 			.catch((errorMessage) => {
@@ -103,23 +104,23 @@ export const Login: React.FC = () => {
 							marginHorizontal="s"
 							padding="l">
 							<Text variant="header1" textAlign="center" marginBottom="l">
-								Bienvenido a Larvel
+								Bienvenido a Marvel
 							</Text>
 							<Text variant="description" textAlign="center">
 								Para estar actualizado con la última información del universo
-								larvel, inicia sesión
+								marvel, inicia sesión.
 							</Text>
 							<View>
 								<View marginVertical="m" marginHorizontal="s">
 									<TextInput
+										ref={emailRef}
 										icon="mail"
-										ref={userNameRef}
 										placeholder="Introducir email"
 										autoCapitalize="none"
 										autoCompleteType="email"
 										value={values.email}
 										onChangeText={handleChange('email')}
-										onBlur={handleBlur('username')}
+										onBlur={handleBlur('email')}
 										error={errors.email}
 										touched={touched.email}
 										returnKeyLabel="next"
