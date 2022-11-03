@@ -40,7 +40,7 @@ const BaseTheme = {
 		primary: 'black',
 		primaryLight: '#a389fa',
 		secondary: '#ffc107',
-		white: '#fff',
+		white: '#ffffff',
 		lightGrey: '#b4b4b4'
 	},
 	borderRadius: {
@@ -81,6 +81,11 @@ const BaseTheme = {
 const theme = createTheme({
 	...BaseTheme,
 	textVariants: {
+		backButton: {
+			color: 'darkText',
+			fontSize: 24,
+			fontWeight: 'bold'
+		},
 		headerTitle: {
 			color: 'darkText',
 			fontWeight: 'bold',

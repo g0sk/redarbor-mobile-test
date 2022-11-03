@@ -24,7 +24,7 @@ const AppNavigator = () => {
 				name="HeroDetails"
 				component={CachedHeroDetails}
 				options={({ route }) => ({
-					headerShown: true,
+					headerShown: false,
 					title: route.params.title
 				})}
 			/>
@@ -32,6 +32,7 @@ const AppNavigator = () => {
 				name="Profile"
 				component={Profile}
 				options={{
+					title: 'Perfil',
 					headerShown: true,
 					headerTransparent: true
 				}}

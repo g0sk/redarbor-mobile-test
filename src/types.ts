@@ -58,12 +58,13 @@ export type ButtonProps = SpacingProps<Theme> &
 		disabled?: boolean;
 	};
 
-export type HeroListItemProps = {
-	hero: MarvelHero;
-};
+export type HeaderProps = { defaultAction: () => void; title: string };
 
 //Marvel api
 
+export type HeroListItemProps = {
+	hero: MarvelHero;
+};
 export type MarvelHero = {
 	id: number;
 	name: string;

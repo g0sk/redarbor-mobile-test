@@ -18,6 +18,7 @@ const HeroesList: React.FC = () => {
 		<View flex={1} flexDirection="column">
 			<View height={80}>
 				<Header
+					title="Héroes"
 					defaultAction={() =>
 						heroListRef.current?.scrollToIndex({ animated: true, index: 0 })
 					}
@@ -35,7 +36,7 @@ const HeroesList: React.FC = () => {
 				<View height={height - 80}>
 					<FlatList
 						ref={heroListRef}
-						data={state.data?.[state.url] as MarvelHeroData}
+						data={state.data?.[state.url]}
 						renderItem={({ item }) => <HeroListItem hero={item} />}
 						initialNumToRender={10}
 						keyExtractor={(item, index) => index.toString()}
