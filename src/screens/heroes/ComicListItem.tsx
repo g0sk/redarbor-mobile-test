@@ -1,6 +1,6 @@
 import { Text, View } from 'components';
 import * as React from 'react';
-import { Image, ImageBackground } from 'react-native';
+import { ImageBackground } from 'react-native';
 import { ComicListItemProps } from 'types';
 
 export const ComicListItem: React.FC<ComicListItemProps> = ({ comic }) => {
@@ -15,9 +15,9 @@ export const ComicListItem: React.FC<ComicListItemProps> = ({ comic }) => {
 			shadowOffset={{ width: 0, height: 2 }}
 			shadowRadius={10}
 			elevation={3}
-			backgroundColor="white"
+			backgroundColor="background"
 			borderColor="lightGray"
-			borderWidth={1}>
+			borderWidth={2}>
 			<View style={{ borderRadius: 36 }}>
 				<View flexDirection="column" alignItems="center">
 					<ImageBackground
@@ -26,7 +26,7 @@ export const ComicListItem: React.FC<ComicListItemProps> = ({ comic }) => {
 						imageStyle={{ borderRadius: 30 }}
 					/>
 					<View marginHorizontal="l" paddingVertical="m">
-						<Text variant="cardTitle">{comic.title}</Text>
+						<Text variant="cardData">{comic.title}</Text>
 					</View>
 				</View>
 			</View>

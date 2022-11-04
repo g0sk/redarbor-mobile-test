@@ -1,53 +1,59 @@
 import * as React from 'react';
-import { Header, View } from 'components';
+import { Header, Screen, View } from 'components';
 import { ActivityIndicator, Dimensions, FlatList } from 'react-native';
-import type { MarvelHeroData } from 'types';
 import {
 	CachedRequestsProvider,
 	useCachedRequests
 } from 'core/ApiRequestContextProvider';
 import { HeroListItem } from './HeroListItem';
 import { API_URL } from '@env';
+import { useTheme } from 'theme';
 
 const { height } = Dimensions.get('window');
 
 const HeroesList: React.FC = () => {
 	const [state, actions] = useCachedRequests();
 	const heroListRef = React.createRef<FlatList<any>>();
+	const theme = useTheme();
 	return (
-		<View flex={1} flexDirection="column">
-			<View height={80}>
-				<Header
-					title="Héroes"
-					defaultAction={() =>
-						heroListRef.current?.scrollToIndex({ animated: true, index: 0 })
-					}
-				/>
+		<Screen>
+			<View flex={1} flexDirection="column">
+				<View height={80}>
+					<Header
+						title="Héroes"
+						defaultAction={() =>
+							heroListRef.current?.scrollToIndex({ animated: true, index: 0 })
+						}
+					/>
+				</View>
+				{state.isFetching && !state.data ? (
+					<View
+						alignItems="center"
+						justifyContent="center"
+						height={height - 200}>
+						<ActivityIndicator
+							color={theme.colors.text}
+							size="large"
+							animating={state.isFetching}
+						/>
+					</View>
+				) : (
+					<View height={height - 80}>
+						<FlatList
+							ref={heroListRef}
+							data={state.data?.[state.url]}
+							renderItem={({ item }) => <HeroListItem hero={item} />}
+							initialNumToRender={10}
+							keyExtractor={(item, index) => index.toString()}
+							refreshing={state.isFetching}
+							onRefresh={() => actions.refresh()}
+							onEndReached={() => actions.paginate()}
+							onEndReachedThreshold={3}
+						/>
+					</View>
+				)}
 			</View>
-			{state.isFetching && !state.data ? (
-				<View alignItems="center" justifyContent="center" height={height - 200}>
-					<ActivityIndicator
-						color="black"
-						size="large"
-						animating={state.isFetching}
-					/>
-				</View>
-			) : (
-				<View height={height - 80}>
-					<FlatList
-						ref={heroListRef}
-						data={state.data?.[state.url]}
-						renderItem={({ item }) => <HeroListItem hero={item} />}
-						initialNumToRender={10}
-						keyExtractor={(item, index) => index.toString()}
-						refreshing={state.isFetching}
-						onRefresh={() => actions.refresh()}
-						onEndReached={() => actions.paginate()}
-						onEndReachedThreshold={3}
-					/>
-				</View>
-			)}
-		</View>
+		</Screen>
 	);
 };
 

@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { Image } from 'react-native';
-import { View, Button } from './';
+import { View } from './';
 import { useTheme } from 'theme';
 
 export const Avatar: React.FC = () => {

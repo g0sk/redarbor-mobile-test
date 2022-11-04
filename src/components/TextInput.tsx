@@ -18,10 +18,10 @@ export const TextInput = forwardRef<RNTextInput, TextInputProps>(
 	({ icon, touched, error, ...props }: TextInputProps, ref) => {
 		const theme = useTheme();
 		const color: keyof typeof theme.colors = !touched
-			? 'default'
+			? 'text'
 			: error
 			? 'error'
-			: 'primary';
+			: 'valid';
 		const iconColor = theme.colors[color];
 		return (
 			<View
@@ -30,7 +30,7 @@ export const TextInput = forwardRef<RNTextInput, TextInputProps>(
 				alignItems="center"
 				borderRadius={theme.borderRadius.m}
 				borderWidth={1}
-				borderColor={color}
+				borderColor={touched ? (!error ? 'valid' : 'error') : 'text'}
 				paddingRight="m">
 				{icon !== null && (
 					<View padding="s">
@@ -39,9 +39,9 @@ export const TextInput = forwardRef<RNTextInput, TextInputProps>(
 				)}
 				<View flex={1}>
 					<RNTextInput
-						style={{ color: theme.colors.darkText }}
+						style={{ color: theme.colors.text }}
 						underlineColorAndroid="transparent"
-						selectionColor={theme.colors.primary}
+						selectionColor={theme.colors.text}
 						placeholderTextColor={iconColor}
 						{...{ ref }}
 						{...props}
@@ -54,8 +54,12 @@ export const TextInput = forwardRef<RNTextInput, TextInputProps>(
 						alignItems="center"
 						height={18}
 						width={18}
-						backgroundColor={!error ? 'primary' : 'error'}>
-						<Icon name={!error ? 'check' : 'x'} color="white" size={10} />
+						backgroundColor={!error ? 'valid' : 'error'}>
+						<Icon
+							name={!error ? 'check' : 'x'}
+							color={theme.colors.text}
+							size={10}
+						/>
 					</View>
 				)}
 			</View>

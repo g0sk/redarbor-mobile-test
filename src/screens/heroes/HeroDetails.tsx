@@ -1,5 +1,6 @@
 import * as React from 'react';
-import { View, Text, Modal } from 'components';
+import { useState } from 'react';
+import { View, Text, Modal, NavigationHeader, Screen } from 'components';
 import type { MarvelComicData } from 'types';
 import {
 	CachedRequestsProvider,
@@ -9,24 +10,19 @@ import { API_URL } from '@env';
 import { useHero } from 'core/HeroProvider';
 import {
 	ImageBackground,
-	SectionListScrollParams,
 	ScrollView,
 	SectionList,
 	TouchableOpacity
 } from 'react-native';
 import { ComicListItem } from './ComicListItem';
-import { useNavigation } from '@react-navigation/native';
-import { useEffect, useMemo, useState } from 'react';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { useTheme } from 'theme';
 
 export const HeroDetails: React.FC = () => {
 	const [show, setShow] = useState<boolean>(false);
-	const [hideHeader, setHideHeader] = useState<boolean>(false);
 	const theme = useTheme();
 	const { hero } = useHero();
 	const [state, actions] = useCachedRequests();
-	const navigation = useNavigation();
 	const comicListRef = React.createRef<SectionList<any>>();
 
 	const scrollToTop = () => {
@@ -39,7 +35,7 @@ export const HeroDetails: React.FC = () => {
 
 	const DescriptionModal = () => {
 		return (
-			<View backgroundColor="white" minHeight={400} borderRadius={10}>
+			<View backgroundColor="background" minHeight={400} borderRadius={10}>
 				<View margin="m">
 					<Text variant="formLabel">{`${hero?.name} description`}</Text>
 				</View>
@@ -59,20 +55,7 @@ export const HeroDetails: React.FC = () => {
 	const HeaderComponent = () => {
 		return (
 			<View>
-				<View flexDirection="row" margin="m" alignItems="center">
-					<TouchableOpacity onPress={() => navigation.goBack()}>
-						<View marginRight="l">
-							<Icon
-								name="arrow-back-outline"
-								color={theme.colors.dark}
-								size={28}
-							/>
-						</View>
-					</TouchableOpacity>
-					<View>
-						<Text variant="backButton">{hero?.name}</Text>
-					</View>
-				</View>
+				<NavigationHeader title={hero ? hero.name : ''} />
 				<View>
 					<ImageBackground
 						style={{ width: '100%', height: 300 }}
@@ -83,16 +66,19 @@ export const HeroDetails: React.FC = () => {
 				</View>
 				<View margin="m" flexDirection="row" justifyContent="space-around">
 					<TouchableOpacity onPress={() => setShow(!show)}>
-						<View flexDirection="row" alignItems="center">
+						<View
+							flexDirection="row"
+							alignItems="center"
+							justifyContent="space-between">
 							<View marginRight="s">
 								<Icon
-									name="information-circle-outline"
+									name="information-circle"
 									size={30}
-									color={theme.colors.dark}
+									color={theme.colors.text}
 								/>
 							</View>
 							<View>
-								<Text>Descripción</Text>
+								<Text variant="infoLabel">Descripción</Text>
 							</View>
 						</View>
 					</TouchableOpacity>
@@ -102,10 +88,10 @@ export const HeroDetails: React.FC = () => {
 							alignItems="center"
 							justifyContent="space-between">
 							<View marginRight="s">
-								<Icon name="book-outline" size={30} color={theme.colors.dark} />
+								<Icon name="book" size={30} color={theme.colors.text} />
 							</View>
 							<View>
-								<Text>{`${hero?.comics.available} cómics`}</Text>
+								<Text variant="infoLabel">{`${hero?.comics.available} cómics`}</Text>
 							</View>
 						</View>
 					</TouchableOpacity>
@@ -120,7 +106,7 @@ export const HeroDetails: React.FC = () => {
 				<View
 					paddingHorizontal="m"
 					height={70}
-					backgroundColor="white"
+					backgroundColor="background"
 					justifyContent="center">
 					<Text variant="header1">{title.title}</Text>
 				</View>
@@ -129,7 +115,7 @@ export const HeroDetails: React.FC = () => {
 	};
 
 	return (
-		<View backgroundColor="white">
+		<Screen>
 			<View>
 				<Modal
 					children={<DescriptionModal />}
@@ -150,14 +136,14 @@ export const HeroDetails: React.FC = () => {
 					renderSectionHeader={({ section: { title } }) => (
 						<SectionHeader title={title} />
 					)}
-					keyExtractor={(item, index) => item.id.toString()}
+					keyExtractor={(item, index) => index.toString()}
 					refreshing={state.isFetching}
 					onRefresh={() => actions.refresh()}
 					onEndReached={() => actions.paginate()}
-					onEndReachedThreshold={3}
+					onEndReachedThreshold={2}
 				/>
 			</View>
-		</View>
+		</Screen>
 	);
 };
 

@@ -1,15 +1,10 @@
 import * as React from 'react';
-import { FC, PropsWithChildren } from 'react';
+import { FC } from 'react';
 import Icon from 'react-native-vector-icons/Feather';
 import { View, Text } from 'components';
 import { useTheme } from 'theme';
 import { TouchableOpacity } from 'react-native';
-
-interface CheckBoxProps extends PropsWithChildren {
-	label?: string;
-	checked: boolean;
-	onChange: () => void;
-}
+import { CheckBoxProps } from 'types';
 
 export const CheckBox: FC<CheckBoxProps> = ({ label, checked, onChange }) => {
 	const theme = useTheme();
@@ -24,10 +19,14 @@ export const CheckBox: FC<CheckBoxProps> = ({ label, checked, onChange }) => {
 					borderRadius={theme.borderRadius.s}
 					justifyContent="center"
 					alignItems="center"
-					borderWidth={checked ? 0 : 1}
-					borderColor={checked ? 'white' : 'primary'}
-					backgroundColor={checked ? 'primary' : 'white'}>
-					<Icon name="check" color="white" />
+					borderWidth={1}
+					borderColor="invertedText"
+					backgroundColor="text">
+					<Icon
+						name="check"
+						size={14}
+						color={checked ? theme.colors.invertedText : theme.colors.text}
+					/>
 				</View>
 				<Text variant="checkBox">{label}</Text>
 			</View>

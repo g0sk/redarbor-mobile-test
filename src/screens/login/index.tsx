@@ -98,7 +98,7 @@ export const Login: React.FC = () => {
 						<View
 							opacity={1}
 							borderRadius={30}
-							backgroundColor="lightBackground"
+							backgroundColor="background"
 							alignContent="center"
 							marginTop="xl"
 							marginHorizontal="s"

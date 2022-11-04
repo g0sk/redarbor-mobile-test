@@ -5,6 +5,9 @@ import {
 	TextProps,
 	BoxProps
 } from '@shopify/restyle';
+import { ColorTheme } from 'types';
+import { getTheme, setTheme } from 'utils/storage';
+import { Appearance } from 'react-native';
 
 type ThemeType = typeof BaseTheme & {
 	textVariants: { [key: string]: TextProps<typeof BaseTheme> };
@@ -15,29 +18,24 @@ const createTheme = <T extends ThemeType>(themeObject: T): T => themeObject;
 
 const BaseTheme = {
 	colors: {
-		yellow: '#FFC300',
-		purple: 'red',
-		darkPurple: '#8e14a3',
-		background: '#000b31',
-		blue: '#1f155e',
+		text: '#000000',
+		invertedText: '#ffffff',
+		valid: '#01b018',
+		header: '#000000',
+		background: '#ffffff',
+		cardBackground: '#ffffff',
 		dark: '#000',
 		gray: '#393939',
 		lightGray: '#8f8b8b',
-		card: '#ffffff',
+		lightText: '#fff',
 		darkText: '#000',
-		red: '#b9244b',
+		error: '#c90404',
 		lightBlue: '#39b4ed',
-		record: '#45c49a',
-		chart: '#0caa36',
-		orange: '#df7327',
 		default: '#9b9b9b',
 		disabled: '#716d6d',
 		description: '#393939',
-		error: '#c90404',
-		lightBackground: '#ffffff',
-		lightText: '#ffffff',
 		placeholderText: '#716d6d',
-		primary: 'black',
+		primary: '#000',
 		primaryLight: '#a389fa',
 		secondary: '#ffc107',
 		white: '#ffffff',
@@ -78,21 +76,31 @@ const BaseTheme = {
 	breakpoints: {}
 };
 
-const theme = createTheme({
+export const theme = createTheme({
 	...BaseTheme,
 	textVariants: {
-		backButton: {
-			color: 'darkText',
-			fontSize: 24,
+		themeSelector: {
+			color: 'text',
+			fontSize: 19,
+			fontWeight: 'bold'
+		},
+		infoLabel: {
+			color: 'text',
+			fontSize: 16,
+			fontWeight: 'bold'
+		},
+		screenTitle: {
+			color: 'text',
+			fontSize: 18,
 			fontWeight: 'bold'
 		},
 		headerTitle: {
-			color: 'darkText',
+			color: 'header',
 			fontWeight: 'bold',
 			fontSize: 30
 		},
-		cardTitle: {
-			color: 'darkText',
+		cardData: {
+			color: 'text',
 			fontWeight: 'bold',
 			fontSize: 20
 		},
@@ -115,18 +123,15 @@ const theme = createTheme({
 			color: 'lightText'
 		},
 		button_primary: {
-			color: 'lightText'
-		},
-		button_secondary: {
-			color: 'lightText',
-			fontSize: 15
+			color: 'invertedText',
+			fontWeight: 'bold'
 		},
 		checkBox: {
 			color: 'description',
 			fontSize: 12
 		},
 		header1: {
-			color: 'darkText',
+			color: 'header',
 			fontWeight: 'bold',
 			fontSize: 28
 		},
@@ -144,10 +149,12 @@ const theme = createTheme({
 			color: 'darkText'
 		},
 		formLabel: {
+			color: 'text',
 			fontSize: 19,
 			fontWeight: 'bold'
 		},
-		dataLabel: {
+		formData: {
+			color: 'text',
 			fontSize: 15,
 			fontWeight: 'bold'
 		},
@@ -164,7 +171,7 @@ const theme = createTheme({
 	},
 	buttonVariants: {
 		primary: {
-			backgroundColor: 'primary'
+			backgroundColor: 'text'
 		},
 		secondary: {
 			backgroundColor: 'secondary'
@@ -174,20 +181,82 @@ const theme = createTheme({
 		}
 	},
 	navigation: {
-		dark: false,
-		colors: {
-			primary: BaseTheme.colors.primary,
-			background: BaseTheme.colors.lightBackground,
-			card: BaseTheme.colors.card,
-			text: BaseTheme.colors.primary,
-			notification: BaseTheme.colors.default,
-			border: BaseTheme.colors.default
-		}
+		dark: true
 	}
 });
+export const darkTheme: Theme = {
+	...theme,
+	colors: {
+		text: '#ffffff',
+		invertedText: '#000000',
+		valid: '#01b018',
+		header: '#ffffff',
+		background: '#000000',
+		cardBackground: '#ffffff',
+		dark: '#000',
+		gray: '#393939',
+		lightGray: '#8f8b8b',
+		lightText: '#fff',
+		darkText: '#000',
+		error: '#c90404',
+		lightBlue: '#39b4ed',
+		default: '#9b9b9b',
+		disabled: '#716d6d',
+		description: '#fff',
+		placeholderText: '#716d6d',
+		primary: '#000',
+		primaryLight: '#a389fa',
+		secondary: '#ffc107',
+		white: '#ffffff',
+		lightGrey: '#b4b4b4'
+	}
+};
 
 export type Theme = typeof theme;
 export const useTheme = () => useReTheme<Theme>();
-export const ThemeProvider = ({ children }: { children: React.ReactNode }) => (
-	<RestyleProvider theme={theme}>{children}</RestyleProvider>
-);
+
+type ContextValues = {
+	colorTheme: ColorTheme;
+	setColorTheme: (theme: ColorTheme) => void;
+};
+
+const ThemeContext: React.Context<ContextValues> =
+	React.createContext<ContextValues>({} as ContextValues);
+
+export const useColorTheme = () => {
+	const { colorTheme, setColorTheme } = React.useContext(ThemeContext);
+	return {
+		colorTheme,
+		setColorTheme
+	};
+};
+
+export const ThemeProvider: React.FC = ({ children }) => {
+	const [colorTheme, setColorTheme] = React.useState<ColorTheme>('light');
+
+	React.useEffect(() => {
+		const retrieveSavedTheme = async () => {
+			const savedTheme = await getTheme();
+			if (savedTheme !== null) {
+				setColorTheme(savedTheme);
+			} else {
+				let colorScheme = Appearance.getColorScheme() as ColorTheme;
+				setColorTheme(colorScheme);
+				setTheme(colorScheme);
+			}
+		};
+		retrieveSavedTheme();
+	}, []);
+
+	return (
+		<ThemeContext.Provider
+			value={{
+				colorTheme,
+				setColorTheme
+			}}>
+			<RestyleProvider theme={colorTheme === 'light' ? theme : darkTheme}>
+				{children}
+			</RestyleProvider>
+		</ThemeContext.Provider>
+	);
+};

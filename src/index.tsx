@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { RootNavigator } from 'navigation/RootNavigator';
 import { AuthProvider } from 'core/AuthProvider';
-import { ThemeProvider } from 'theme';
 import { HeroProvider } from 'core/HeroProvider';
+import { ThemeProvider } from 'theme';
 
 const App = () => {
 	return (

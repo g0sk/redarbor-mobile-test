@@ -8,6 +8,8 @@ import { ApisauceInstance } from 'apisauce';
 import { Dispatch, SetStateAction } from 'react';
 import { Theme } from 'theme';
 
+export type ColorTheme = 'light' | 'dark';
+
 export type Credentials = {
 	name: string;
 	lastName: string;
@@ -59,6 +61,12 @@ export type ButtonProps = SpacingProps<Theme> &
 	};
 
 export type HeaderProps = { defaultAction: () => void; title: string };
+
+export type CheckBoxProps = {
+	label?: string;
+	checked: boolean;
+	onChange: () => void;
+};
 
 //Marvel api
 
