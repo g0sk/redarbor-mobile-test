@@ -35,16 +35,20 @@ export const HeroDetails: React.FC = () => {
 
 	const DescriptionModal = () => {
 		return (
-			<View backgroundColor="background" minHeight={400} borderRadius={10}>
+			<View
+				backgroundColor="background"
+				minHeight={500}
+				borderRadius={10}
+				padding="m">
 				<View margin="m">
-					<Text variant="formLabel">{`${hero?.name} description`}</Text>
+					<Text variant="formLabel">{`Descripción de ${hero?.name}`}</Text>
 				</View>
 				<View flexDirection="row" margin="m" alignItems="center">
 					<ScrollView scrollEnabled={true}>
 						<Text variant="heroDescription">
 							{hero && hero.description.length > 0
 								? hero.description
-								: 'Descripción no disponible'}
+								: 'Actualmente no existe una descripción para este héroe'}
 						</Text>
 					</ScrollView>
 				</View>

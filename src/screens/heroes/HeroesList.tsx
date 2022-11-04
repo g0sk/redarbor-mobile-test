@@ -15,10 +15,11 @@ const HeroesList: React.FC = () => {
 	const [state, actions] = useCachedRequests();
 	const heroListRef = React.createRef<FlatList<any>>();
 	const theme = useTheme();
+
 	return (
 		<Screen>
 			<View flex={1} flexDirection="column">
-				<View height={80}>
+				<View>
 					<Header
 						title="Héroes"
 						defaultAction={() =>
@@ -38,7 +39,7 @@ const HeroesList: React.FC = () => {
 						/>
 					</View>
 				) : (
-					<View height={height - 80}>
+					<View>
 						<FlatList
 							ref={heroListRef}
 							data={state.data?.[state.url]}

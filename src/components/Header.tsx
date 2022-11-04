@@ -7,11 +7,13 @@ import { HeaderProps } from 'types';
 export const Header: React.FC<HeaderProps> = ({ title, defaultAction }) => {
 	return (
 		<View
-			flex={1}
 			flexDirection="row"
 			marginHorizontal="l"
 			alignItems="center"
-			justifyContent="space-between">
+			justifyContent="space-between"
+			height={80}
+			minHeight={80}
+			maxHeight={80}>
 			<View>
 				<TouchableOpacity onPress={() => defaultAction()}>
 					<Text variant="headerTitle">{title}</Text>

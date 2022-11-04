@@ -105,8 +105,9 @@ export const theme = createTheme({
 			fontSize: 20
 		},
 		heroDescription: {
+			color: 'text',
 			textAlign: 'justify',
-			lineHeight: 26,
+			lineHeight: 30,
 			fontSize: 20
 		},
 		errorHeader: {

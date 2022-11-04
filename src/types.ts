@@ -60,7 +60,10 @@ export type ButtonProps = SpacingProps<Theme> &
 		disabled?: boolean;
 	};
 
-export type HeaderProps = { defaultAction: () => void; title: string };
+export type HeaderProps = {
+	defaultAction: () => void;
+	title: string;
+};
 
 export type CheckBoxProps = {
 	label?: string;

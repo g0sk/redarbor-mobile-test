@@ -37,4 +37,4 @@ export const removeCredentials = () => removeItem(CREDENTIALS);
 export const getTheme = () => getItem<ColorTheme>('theme');
 export const setTheme = (value: ColorTheme) =>
 	setItem<ColorTheme>(COLOR_THEME, value);
-export const removeTheme = (value: ColorTheme) => removeItem(COLOR_THEME);
+export const removeTheme = () => removeItem(COLOR_THEME);

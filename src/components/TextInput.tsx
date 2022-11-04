@@ -57,7 +57,7 @@ export const TextInput = forwardRef<RNTextInput, TextInputProps>(
 						backgroundColor={!error ? 'valid' : 'error'}>
 						<Icon
 							name={!error ? 'check' : 'x'}
-							color={theme.colors.text}
+							color={theme.colors.white}
 							size={10}
 						/>
 					</View>

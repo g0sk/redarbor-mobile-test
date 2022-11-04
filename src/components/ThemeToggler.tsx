@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Switch } from 'react-native';
 import { useColorTheme, useTheme } from 'theme';
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -13,9 +13,12 @@ export const ThemeToggler: React.FC = () => {
 	const [value, setValue] = useState<boolean>(false);
 	const changeTheme = () => {
 		setValue(!value);
+		setTheme(colorTheme === 'light' ? 'dark' : 'light');
 		setColorTheme(colorTheme === 'light' ? 'dark' : 'light');
-		setTheme(value ? 'dark' : 'light');
 	};
+	useEffect(() => {
+		setValue(colorTheme === 'dark');
+	}, []);
 	return (
 		<View flexDirection="row" alignItems="center">
 			<View flexDirection="row">

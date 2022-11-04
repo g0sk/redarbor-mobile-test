@@ -1,5 +1,9 @@
 import * as React from 'react';
-import { getCredentials, removeCredentials } from '../utils/storage/index';
+import {
+	getCredentials,
+	removeCredentials,
+	removeTheme
+} from '../utils/storage/index';
 
 type User = {
 	name: string;

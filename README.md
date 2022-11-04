@@ -22,3 +22,7 @@ Known issues (non-exhaustive) with React Native's URL are:
 - URL incorrectly adds trailing slash [react-native#24428](https://github.com/facebook/react-native/issues/24428).
 
 - Creating an instance of URL like: new URL('http://something.com') throws an exception [react-native#16434](https://github.com/facebook/react-native/issues/16434).
+
+# Authentication
+
+User to log in: `user@user.com`
