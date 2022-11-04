@@ -39,7 +39,7 @@ const HeroesList: React.FC = () => {
 						/>
 					</View>
 				) : (
-					<View>
+					<View paddingBottom="xxl">
 						<FlatList
 							ref={heroListRef}
 							data={state.data?.[state.url]}
@@ -49,7 +49,7 @@ const HeroesList: React.FC = () => {
 							refreshing={state.isFetching}
 							onRefresh={() => actions.refresh()}
 							onEndReached={() => actions.paginate()}
-							onEndReachedThreshold={3}
+							onEndReachedThreshold={3.5}
 						/>
 					</View>
 				)}
