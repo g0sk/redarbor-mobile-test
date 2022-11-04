@@ -26,3 +26,5 @@ Known issues (non-exhaustive) with React Native's URL are:
 # Authentication
 
 User to log in: `user@user.com`
+
+Tested on android with a Pixel 6 emulator
