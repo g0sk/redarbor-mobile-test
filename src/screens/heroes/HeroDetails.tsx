@@ -5,7 +5,7 @@ import type { MarvelComicData } from 'types';
 import {
 	CachedRequestsProvider,
 	useCachedRequests
-} from 'core/ApiRequestContextProvider';
+} from 'api/ApiRequestContextProvider';
 import { API_URL } from '@env';
 import { useHero } from 'core/hero/HeroProvider';
 import {
@@ -120,11 +120,7 @@ export const HeroDetails: React.FC = () => {
 	const SectionHeader: React.FC<{ title: string }> = (title) => {
 		return (
 			<TouchableOpacity onPress={() => scrollToTop()}>
-				<View
-					paddingHorizontal="m"
-					height={70}
-					backgroundColor="background"
-					justifyContent="center">
+				<View padding="m" backgroundColor="background" justifyContent="center">
 					<Text variant="header1">{title.title}</Text>
 				</View>
 			</TouchableOpacity>

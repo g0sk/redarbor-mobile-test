@@ -16,7 +16,7 @@ export const SmallAvatar: React.FC = () => {
 							width: 40,
 							borderRadius: 80
 						}}
-						source={{ uri: require('../../assets/images/avatar.png') }}
+						source={require('../../assets/images/avatar.png')}
 					/>
 				</View>
 			</TouchableOpacity>

@@ -4,7 +4,7 @@ import { ActivityIndicator, Dimensions, FlatList } from 'react-native';
 import {
 	CachedRequestsProvider,
 	useCachedRequests
-} from 'core/ApiRequestContextProvider';
+} from 'api/ApiRequestContextProvider';
 import { HeroListItem } from './HeroListItem';
 import { API_URL } from '@env';
 import { useTheme } from 'theme';
