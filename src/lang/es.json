@@ -1,0 +1,71 @@
+{
+    "screen": {
+        "login": {
+            "header": "Bienvenido a Marvel",
+            "description": "Para estar actualizado con la última información del universo marvel, inicia sesión."
+        },
+        "heroesList": {
+            "title": "Héroes",
+            "hero": "Héroe",
+            "comic": "Cómic",
+            "comics": "Cómics"
+        },
+        "heroDetails": {
+            "description": "Descripción",
+            "comic": "Cómic",
+            "comics": "Cómics",
+            "descriptionFrom": "Descripción de",
+            "noDescription": "Actualmente no hay descripción disponible para",
+            "comicsFrom": "Cómics de"
+        },
+        "profile": {
+            "title": "Perfil"
+        }
+    },
+    "form": {
+        "login": {
+            "field": {
+                "email": {
+                    "invalidUser": "Usuario incorrecto",
+                    "required": "Usuario requerido",
+                    "placeholder": "Introducir usuario"
+                },
+                "password": {
+                    "minPassword": "Mínimo 5 caracteres",
+                    "maxPassword": "Máximo 15 caracteres",
+                    "placeholder": "Introducir contraseña",
+                    "required": "Contraseña requerida"
+                },
+                "saveCredentials": {
+                    "rememberMe": "Recordarme"
+                }
+            }
+        },
+        "profile": {
+            "field": {
+                "name": {
+                    "label": "Nombre"
+                },
+                "lastName": {
+                    "label": "Apellidos"
+                },
+                "email": {
+                    "label": "Correo electrónico"
+                }
+            }
+        }
+    },
+    "action": {
+        "login": {
+            "title": "Iniciar sesión"
+        },
+        "logOut": {
+            "title": "Cerrar sesión",
+            "description": "¿Está seguro de que desea cerrar sesión?"
+        },
+        "cancel": "Cancelar"
+    },
+    "info": {
+        "version": "Versión"
+    }
+}

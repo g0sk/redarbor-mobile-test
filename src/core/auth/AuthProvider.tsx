@@ -1,9 +1,10 @@
+import { translate } from 'core/i18n';
 import * as React from 'react';
 import {
 	getCredentials,
 	removeCredentials,
 	removeTheme
-} from '../utils/storage/index';
+} from '../../utils/storage/index';
 
 type User = {
 	name: string;
@@ -76,7 +77,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 							dispatch({ type: 'SIGN_IN', user });
 							resolve(user);
 						} else {
-							reject('User not valid');
+							reject(translate('form.login.field.email.invalidUser'));
 						}
 					} catch (e) {
 						reject(e);

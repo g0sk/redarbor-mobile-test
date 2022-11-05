@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { RootNavigator } from 'navigation/RootNavigator';
-import { AuthProvider } from 'core/AuthProvider';
-import { HeroProvider } from 'core/HeroProvider';
+import { AuthProvider } from 'core/auth/AuthProvider';
+import { HeroProvider } from 'core/hero/HeroProvider';
 import { ThemeProvider } from 'theme';
 
 const App = () => {

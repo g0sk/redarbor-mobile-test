@@ -7,7 +7,7 @@ import {
 	useCachedRequests
 } from 'core/ApiRequestContextProvider';
 import { API_URL } from '@env';
-import { useHero } from 'core/HeroProvider';
+import { useHero } from 'core/hero/HeroProvider';
 import {
 	ImageBackground,
 	ScrollView,
@@ -17,6 +17,7 @@ import {
 import { ComicListItem } from './ComicListItem';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { useTheme } from 'theme';
+import { translate } from 'core/i18n';
 
 export const HeroDetails: React.FC = () => {
 	const [show, setShow] = useState<boolean>(false);
@@ -24,6 +25,12 @@ export const HeroDetails: React.FC = () => {
 	const { hero } = useHero();
 	const [state, actions] = useCachedRequests();
 	const comicListRef = React.createRef<SectionList<any>>();
+
+	const comics = `${hero?.comics.available} ${translate(
+		hero && hero.comics.available > 0
+			? 'screen.heroDetails.comics'
+			: 'screen.heroDetails.comic'
+	)}`;
 
 	const scrollToTop = () => {
 		comicListRef.current?.scrollToLocation({
@@ -41,14 +48,18 @@ export const HeroDetails: React.FC = () => {
 				borderRadius={10}
 				padding="m">
 				<View margin="m">
-					<Text variant="formLabel">{`Descripción de ${hero?.name}`}</Text>
+					<Text variant="formLabel">{`${translate(
+						'screen.heroDetails.descriptionFrom'
+					)} ${hero?.name}`}</Text>
 				</View>
 				<View flexDirection="row" margin="m" alignItems="center">
 					<ScrollView scrollEnabled={true}>
 						<Text variant="heroDescription">
 							{hero && hero.description.length > 0
 								? hero.description
-								: 'Actualmente no existe una descripción para este héroe'}
+								: `${translate('screen.heroDetails.noDescription')} ${
+										hero?.name
+								  }.`}
 						</Text>
 					</ScrollView>
 				</View>
@@ -82,7 +93,9 @@ export const HeroDetails: React.FC = () => {
 								/>
 							</View>
 							<View>
-								<Text variant="infoLabel">Descripción</Text>
+								<Text variant="infoLabel">
+									{translate('screen.heroDetails.description')}
+								</Text>
 							</View>
 						</View>
 					</TouchableOpacity>
@@ -95,7 +108,7 @@ export const HeroDetails: React.FC = () => {
 								<Icon name="book" size={30} color={theme.colors.text} />
 							</View>
 							<View>
-								<Text variant="infoLabel">{`${hero?.comics.available} cómics`}</Text>
+								<Text variant="infoLabel">{comics}</Text>
 							</View>
 						</View>
 					</TouchableOpacity>
@@ -130,7 +143,9 @@ export const HeroDetails: React.FC = () => {
 					ref={comicListRef}
 					sections={[
 						{
-							title: `Cómics de ${hero?.name}`,
+							title: `${translate('screen.heroDetails.comicsFrom')} ${
+								hero?.name
+							}`,
 							data: state.data ? (state.data[state.url] as MarvelComicData) : []
 						}
 					]}

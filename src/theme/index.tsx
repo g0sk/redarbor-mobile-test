@@ -120,6 +120,10 @@ export const theme = createTheme({
 			fontWeight: 'bold',
 			fontSize: 25
 		},
+		button_delete: {
+			color: 'text',
+			fontWeight: 'bold'
+		},
 		button_disabled: {
 			color: 'lightText'
 		},
@@ -179,6 +183,9 @@ export const theme = createTheme({
 		},
 		disabled: {
 			backgroundColor: 'disabled'
+		},
+		delete: {
+			backgroundColor: 'error'
 		}
 	},
 	navigation: {

@@ -9,32 +9,37 @@ import {
 } from 'components';
 import Icon from 'react-native-vector-icons/Feather';
 import { useTheme } from 'theme';
-import { useAuth } from 'core/AuthProvider';
+import { useAuth } from 'core/auth/AuthProvider';
 import { Alert } from 'react-native';
 import { VERSION } from '@env';
 import { ThemeToggler } from 'components/ThemeToggler';
+import { translate } from 'core/i18n';
 
 export const Profile: React.FC = () => {
 	const theme = useTheme();
 	const { user, signOut } = useAuth();
 
 	const logOut = () => {
-		Alert.alert('Cerrar sesión', '¿Está seguro de que desea cerrar sesión?', [
-			{
-				text: 'Cancelar',
-				onPress: () => null
-			},
-			{
-				text: 'Cerrar sesión',
-				onPress: () => signOut()
-			}
-		]);
+		Alert.alert(
+			translate('action.logOut.title'),
+			translate('action.logOut.description'),
+			[
+				{
+					text: translate('action.cancel'),
+					onPress: () => null
+				},
+				{
+					text: translate('action.logOut.title'),
+					onPress: () => signOut()
+				}
+			]
+		);
 	};
 
 	return (
 		<Screen>
 			<View flexDirection="column">
-				<NavigationHeader title="Perfil" />
+				<NavigationHeader title={translate('screen.profile.title')} />
 				<View marginHorizontal="xl">
 					<View alignItems="center" marginTop="m" marginBottom="l">
 						<Avatar />
@@ -49,7 +54,7 @@ export const Profile: React.FC = () => {
 					<View flexDirection="column" marginHorizontal="m">
 						<View marginBottom="m">
 							<Text variant="formLabel" marginBottom="s">
-								Nombre
+								{translate('form.profile.field.name.label')}
 							</Text>
 							<View
 								height={48}
@@ -70,7 +75,7 @@ export const Profile: React.FC = () => {
 						</View>
 						<View marginBottom="m">
 							<Text variant="formLabel" marginBottom="s">
-								Apellidos
+								{translate('form.profile.field.lastName.label')}
 							</Text>
 							<View
 								height={48}
@@ -91,7 +96,7 @@ export const Profile: React.FC = () => {
 						</View>
 						<View marginBottom="m">
 							<Text variant="formLabel" marginBottom="s">
-								Correo electrónico
+								{translate('form.profile.field.email.label')}
 							</Text>
 							<View
 								height={48}
@@ -114,11 +119,13 @@ export const Profile: React.FC = () => {
 							<Button
 								variant="primary"
 								onPress={() => logOut()}
-								label="Cerrar sesión"
+								label={translate('action.logOut.title')}
 							/>
 						</View>
 						<View alignItems="center" margin="l">
-							<Text variant="version">{`Versión ${VERSION}`}</Text>
+							<Text variant="version">{`${translate(
+								'info.version'
+							)} ${VERSION}`}</Text>
 						</View>
 					</View>
 				</View>

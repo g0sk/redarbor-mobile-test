@@ -11,7 +11,8 @@ import {
 } from 'react-native';
 import { Button, CheckBox, Text, TextInput, View } from 'components';
 import { getCredentials, setCredentials } from 'utils/storage';
-import { useAuth } from 'core/AuthProvider';
+import { useAuth } from 'core/auth/AuthProvider';
+import { translate } from 'core/i18n';
 
 export interface FormLoginValues {
 	email: string;
@@ -22,11 +23,13 @@ export interface FormLoginValues {
 const { height, width } = Dimensions.get('window');
 
 const LoginSchema = Yup.object().shape({
-	email: Yup.string().email('Email invalido').required('Email requerido'),
+	email: Yup.string()
+		.email(translate('form.login.field.email.invalidUser'))
+		.required(translate('form.login.field.email.required')),
 	password: Yup.string()
-		.min(5, 'Mínimo 5 caracteres')
-		.max(15, 'Maximo 15 caracteres')
-		.required('Contraseña requerida'),
+		.min(5, translate('form.login.field.password.minPassword'))
+		.max(15, translate('form.login.field.password.maxPassword'))
+		.required(translate('form.login.field.password.required')),
 	saveCredentials: Yup.boolean()
 });
 
@@ -35,6 +38,7 @@ export const Login: React.FC = () => {
 	const [loading, setLoading] = useState<boolean>(false);
 	const emailRef = useRef<RNTextInput>(null);
 	const passwordRef = useRef<RNTextInput>(null);
+
 	const {
 		handleChange,
 		handleBlur,
@@ -78,7 +82,7 @@ export const Login: React.FC = () => {
 				}
 			})
 			.catch((errorMessage) => {
-				setErrors({ email: 'Email invalid' });
+				setErrors({ email: translate('form.login.field.email.invalidUser') });
 				setLoading(false);
 				ToastAndroid.showWithGravity(
 					errorMessage,
@@ -104,18 +108,19 @@ export const Login: React.FC = () => {
 							marginHorizontal="s"
 							padding="l">
 							<Text variant="header1" textAlign="center" marginBottom="l">
-								Bienvenido a Marvel
+								{translate('screen.login.header')}
 							</Text>
 							<Text variant="description" textAlign="center">
-								Para estar actualizado con la última información del universo
-								marvel, inicia sesión.
+								{translate('screen.login.description')}
 							</Text>
 							<View>
 								<View marginVertical="m" marginHorizontal="s">
 									<TextInput
 										ref={emailRef}
 										icon="mail"
-										placeholder="Introducir email"
+										placeholder={translate(
+											'form.login.field.email.placeholder'
+										)}
 										autoCapitalize="none"
 										autoCompleteType="email"
 										value={values.email}
@@ -130,7 +135,9 @@ export const Login: React.FC = () => {
 										<TextInput
 											ref={passwordRef}
 											icon="lock"
-											placeholder="Introducer contraseña"
+											placeholder={translate(
+												'form.login.field.password.placeholder'
+											)}
 											secureTextEntry={true}
 											autoCapitalize="none"
 											value={values.password}
@@ -146,7 +153,9 @@ export const Login: React.FC = () => {
 									<View paddingTop="m" paddingHorizontal="s">
 										<CheckBox
 											checked={values.saveCredentials}
-											label="Recordarme"
+											label={translate(
+												'form.login.field.saveCredentials.rememberMe'
+											)}
 											onChange={() =>
 												setFieldValue(
 													'saveCredentials',
@@ -160,7 +169,7 @@ export const Login: React.FC = () => {
 									<Button
 										disabled={!isValid}
 										variant={isValid ? 'primary' : 'disabled'}
-										label="Iniciar sesión"
+										label={translate('action.login.title')}
 										onPress={() => handleSubmit()}
 										loading={loading}
 									/>

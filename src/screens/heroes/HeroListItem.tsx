@@ -3,12 +3,18 @@ import * as React from 'react';
 import { ImageBackground, TouchableHighlight } from 'react-native';
 import { HeroDetailsProps, HeroListItemProps } from 'types';
 import { useNavigation } from '@react-navigation/native';
-import { useHero } from 'core/HeroProvider';
+import { useHero } from 'core/hero/HeroProvider';
+import { translate } from 'core/i18n';
 
 export const HeroListItem: React.FC<HeroListItemProps> = ({ hero }) => {
 	const navigation = useNavigation<HeroDetailsProps['navigation']>();
 	const { setHero } = useHero();
 	const uri = `${hero.thumbnail.path}/landscape_incredible.${hero.thumbnail.extension}`;
+	const comics = `${translate(
+		hero && hero.comics.available > 0
+			? 'screen.heroesList.comics'
+			: 'screen.heroesList.comic'
+	)}: ${hero?.comics.available}`;
 
 	return (
 		<View flexDirection="column" marginVertical="m" marginHorizontal="l">
@@ -50,7 +56,7 @@ export const HeroListItem: React.FC<HeroListItemProps> = ({ hero }) => {
 					<Text variant="cardData">{hero.name}</Text>
 				</View>
 				<View>
-					<Text variant="cardData">{`Cómics:${hero.comics.available}`}</Text>
+					<Text variant="cardData">{comics}</Text>
 				</View>
 			</View>
 		</View>

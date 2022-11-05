@@ -8,6 +8,7 @@ import {
 import { HeroListItem } from './HeroListItem';
 import { API_URL } from '@env';
 import { useTheme } from 'theme';
+import { translate } from 'core/i18n';
 
 const { height } = Dimensions.get('window');
 
@@ -21,7 +22,7 @@ const HeroesList: React.FC = () => {
 			<View flex={1} flexDirection="column">
 				<View>
 					<Header
-						title="Héroes"
+						title={translate('screen.heroesList.title')}
 						defaultAction={() =>
 							heroListRef.current?.scrollToIndex({ animated: true, index: 0 })
 						}

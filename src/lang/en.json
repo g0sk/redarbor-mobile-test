@@ -1,0 +1,72 @@
+{
+    "screen": {
+        "login": {
+            "header": "Welcome to Marvel",
+            "description": "To stay updated with the latest marvel universe info, log in."
+        },
+        "heroesList": {
+            "title": "Heroes",
+            "hero": "Heroe",
+            "comic": "Comic",
+            "comics": "Comics"
+        },
+        "heroDetails": {
+            "descriptionFrom": "Description from",
+            "comicsFrom": "Comics from",
+            "description": "Description",
+            "noDescription": "Currently, there is no description available for",
+            "comic": "Comic",
+            "comics": "Comics"
+        },
+        "profile": {
+            "title": "Profile"
+        }
+        
+    },
+    "form": {
+        "login": {
+            "field": {
+                "email": {
+                    "invalidUser": "Invalid user",
+                    "required": "User required",
+                    "placeholder": "Enter email"
+                },
+                "password": {
+                    "minPassword": "Minimum 5 characteres",
+                    "maxPassword": "Maximum 15 characteres",
+                    "placeholder": "Enter password",
+                    "required": "Password required"
+                },
+                "saveCredentials": {
+                    "rememberMe": "Remember me"
+                }
+            }
+        },
+         "profile": {
+            "field": {
+                "name": {
+                    "label": "Name"
+                },
+                "lastName": {
+                    "label": "Last name"
+                },
+                "email": {
+                    "label": "Email"
+                }
+            }
+        }
+    },
+    "action": {
+         "login": {
+            "title": "Log in"
+        },
+        "logOut": {
+            "title": "Log out",
+            "description": "Are you sure you want to log out?"
+        },
+        "cancel": "Cancel"
+    },
+    "info": {
+        "version": "Version"
+    }
+}
