@@ -9,7 +9,7 @@ export const Avatar: React.FC = () => {
 	return (
 		<View>
 			<Image
-				source={require('../../assets/images/avatar.png')}
+				source={{ uri: require('../../assets/images/avatar.png') }}
 				style={{
 					height: 130,
 					width: 130,
