@@ -1,4 +1,12 @@
 import {
+	CompositeScreenProps,
+	NavigatorScreenParams
+} from '@react-navigation/native';
+import {
+	NativeStackNavigationProp,
+	NativeStackScreenProps
+} from '@react-navigation/native-stack';
+import {
 	BackgroundColorProps,
 	BorderProps,
 	SpacingProps,
@@ -16,32 +24,7 @@ export type Credentials = {
 	email: string;
 };
 
-//Navigation
-
-export type RootNavigatorParamList = {
-	Auth: AuthParamList;
-	App: AppNavigatorParamList;
-};
-
-export type AuthParamList = {
-	Login: undefined;
-};
-
-export type AppNavigatorParamList = {
-	HeroesList: undefined;
-	HeroDetails: {
-		hero: MarvelHero;
-		title: string;
-	};
-	Profile: undefined;
-};
-
-export type HeroDetailsScreenProps = {
-	hero: MarvelHero;
-};
-
 //Components
-
 export interface ModalProps {
 	children: React.ReactNode;
 	show: boolean;
@@ -70,6 +53,53 @@ export type CheckBoxProps = {
 	checked: boolean;
 	onChange: () => void;
 };
+
+//Navigators
+export type RootNavigatorParamList = {
+	Auth: NavigatorScreenParams<AuthParamList>;
+	App: NavigatorScreenParams<AppNavigatorParamList>;
+};
+
+export type AuthParamList = {
+	Login: undefined;
+};
+
+export type AppNavigatorParamList = {
+	HeroesList: undefined;
+	HeroDetails: {
+		hero: MarvelHero;
+		title: string;
+	};
+	Profile: undefined;
+};
+
+export type AppNavigatorProps = NativeStackScreenProps<
+	RootNavigatorParamList,
+	'App'
+>;
+
+export type AuthNavigatorProps = NativeStackScreenProps<
+	RootNavigatorParamList,
+	'Auth'
+>;
+
+//HeroDetails
+
+export type HeroDetailsScreenProps = {
+	hero: MarvelHero;
+};
+
+//useNavigation hook type
+export type HeroDetailsProps = CompositeScreenProps<
+	NativeStackScreenProps<AppNavigatorParamList, 'HeroDetails'>,
+	AppNavigatorProps
+>;
+
+//Profile
+export type ProfileProps = CompositeScreenProps<
+	NativeStackScreenProps<AppNavigatorParamList, 'Profile'>,
+	AppNavigatorProps
+>;
 
 //Marvel api
 

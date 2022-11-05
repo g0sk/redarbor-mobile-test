@@ -1,12 +1,12 @@
 import { Text, View } from 'components';
 import * as React from 'react';
 import { ImageBackground, TouchableHighlight } from 'react-native';
-import { HeroListItemProps } from 'types';
+import { HeroDetailsProps, HeroListItemProps } from 'types';
 import { useNavigation } from '@react-navigation/native';
 import { useHero } from 'core/HeroProvider';
 
 export const HeroListItem: React.FC<HeroListItemProps> = ({ hero }) => {
-	const navigation = useNavigation();
+	const navigation = useNavigation<HeroDetailsProps['navigation']>();
 	const { setHero } = useHero();
 	const uri = `${hero.thumbnail.path}/landscape_incredible.${hero.thumbnail.extension}`;
 
@@ -24,7 +24,10 @@ export const HeroListItem: React.FC<HeroListItemProps> = ({ hero }) => {
 				<TouchableHighlight
 					onPress={() => {
 						setHero(hero);
-						navigation.navigate('HeroDetails', { hero: hero, title: 'hello' });
+						navigation.navigate('HeroDetails', {
+							hero: hero,
+							title: 'hello'
+						});
 					}}
 					style={{ borderRadius: 36 }}
 					underlayColor="gray">

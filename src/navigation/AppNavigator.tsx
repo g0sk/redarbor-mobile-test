@@ -23,9 +23,9 @@ const AppNavigator = () => {
 			<Stack.Screen
 				name="HeroDetails"
 				component={CachedHeroDetails}
-				options={({ route }) => ({
+				options={{
 					headerShown: false
-				})}
+				}}
 			/>
 			<Stack.Screen
 				name="Profile"
